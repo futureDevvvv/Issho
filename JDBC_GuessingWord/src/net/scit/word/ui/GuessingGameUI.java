@@ -37,7 +37,7 @@ public class GuessingGameUI{
 	// 메인 메뉴
 	private void mainMenu() {
 		System.out.println("===== [일본어 단어 외우기] =====");
-		System.out.println("       1) 전체 목록 조회");
+		System.out.println("       1) 전체 목록 조회 영혜가 수정함~~");
 		System.out.println("       2) 단어 추가 나도 수정함!!");
 		System.out.println("       3) 단어 찾기");
 		System.out.println("       4) 단어 수정");
