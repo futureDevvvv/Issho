@@ -45,7 +45,7 @@ public class GuessingGameUI{
 		System.out.println("       2) 단어 추가");
 		System.out.println("       3) 단어 찾기");
 		System.out.println("       4) 단어 수gggggg정");
-		System.out.println("       5) 단어 삭제");
+		System.out.println("       5) 단어 삭제22222222222222");
 		System.out.println("       6) 단어 맞추기 게임");
 		System.out.println("       0) 프로그램 종료");
 		System.out.println("============================");
