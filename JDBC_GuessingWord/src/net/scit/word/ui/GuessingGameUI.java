@@ -43,7 +43,7 @@ public class GuessingGameUI{
 		System.out.println("       4) 단어 수정");
 		System.out.println("       5) 단어 삭제");
 		System.out.println("       6) 단어 맞추기 게임");
-		System.out.println("       0) 프로그램 종료");
+		System.out.println("       0) 프로그램 종료 여기는 내가 수정");
 		System.out.println("============================");
 		System.out.print  ("          선택> ");
 	}
