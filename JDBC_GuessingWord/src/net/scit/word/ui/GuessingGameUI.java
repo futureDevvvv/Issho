@@ -29,56 +29,57 @@ public class GuessingGameUI{
 			case "5" : delete(); 	break;
 			case "6" : guessingGame(); break;
 			case "0" : 
-				System.out.println("** ÇÁ·Î±×·¥À» Á¾·áÇÕ´Ï´Ù.");
+				System.out.println("** í”„ë¡œê·¸ë¨ì„ ì¢…ë£Œí•©ë‹ˆë‹¤.");
 				System.exit(0);
 			default :
-				System.out.println("err) ¸Ş´º¸¦ ´Ù½Ã ¼±ÅÃÇØ ÁÖ¼¼¿ä");
+				System.out.println("err) ë©”ë‰´ë¥¼ ë‹¤ì‹œ ì„ íƒí•´ ì£¼ì„¸ìš”");
 			}
-			//keyin.nextLine(); // ¹öÆÛ ºñ¿ì±â
+			//keyin.nextLine(); // ë²„í¼ ë¹„ìš°ê¸°
 		}
 	}
 	
-	// ¸ŞÀÎ ¸Ş´º
+	// ë©”ì¸ ë©”ë‰´
 	private void mainMenu() {
-		System.out.println("===== [ÀÏº»¾î ´Ü¾î ¿Ü¿ì±â] =====");
-		System.out.println("       1) ÀüÃ¼ ¸ñ·Ï Á¶È¸");
-		System.out.println("       2) ´Ü¾î Ãß°¡");
-		System.out.println("       3) ´Ü¾î Ã£±â");
-		System.out.println("       4) ´Ü¾î ¼öggggggÁ¤");
-		System.out.println("       5) ´Ü¾î »èÁ¦22222222222222");
-		System.out.println("       6) ´Ü¾î ¸ÂÃß±â °ÔÀÓ");
-		System.out.println("       0) ÇÁ·Î±×·¥ Á¾·á zzzzzzzzzzzz");
+		System.out.println("===== [ì¼ë³¸ì–´ ë‹¨ì–´ ì™¸ìš°ê¸°] =====");
+		System.out.println("       1) ì „ì²´ ëª©ë¡ ì¡°íšŒ ì˜í˜œê°€ ìˆ˜ì •í•¨~~");
+		System.out.println("       2) ë‹¨ì–´ ì¶”ê°€ ë‚˜ë„ ìˆ˜ì •í•¨!!");
+		System.out.println("       3) ë‹¨ì–´ ì°¾ê¸°");
+		System.out.println("       4) ë‹¨ì–´ ìˆ˜ggggggì •");
+		System.out.println("       5) ë‹¨ì–´ ì‚­ì œ22222222222222");
+		System.out.println("       6) ë‹¨ì–´ ë§ì¶”ê¸° ê²Œì„");
+		System.out.println("       0) í”„ë¡œê·¸ë¨ ì¢…ë£Œ zzzzzzzzzzzz");
+		System.out.println("       0) í”„ë¡œê·¸ë¨ ì¢…ë£Œ ì—¬ê¸°ëŠ” ë‚´ê°€ ìˆ˜ì •");
 		System.out.println("============================");
-		System.out.print  ("          ¼±ÅÃ> ");
+		System.out.print  ("          ì„ íƒ> ");
 	}
 	
 
-	// ÀüÃ¼ ´Ü¾î Á¶È¸
+	// ì „ì²´ ë‹¨ì–´ ì¡°íšŒ
 	private void list() {
-		System.out.println("\n<< ÀüÃ¼ ´Ü¾î Á¶È¸ >>");
+		System.out.println("\n<< ì „ì²´ ë‹¨ì–´ ì¡°íšŒ >>");
 		
 		List<Word> list = dao.listWord();
 		
 		list.forEach(x -> System.out.println(x));
 	}
 
-	// »õ·Î¿î ´Ü¾î Ãß°¡
+	// ìƒˆë¡œìš´ ë‹¨ì–´ ì¶”ê°€
 	private void add() {
 		String word, mean;
-		System.out.println("\n<< »õ·Î¿î ´Ü¾î µî·Ï >>");
+		System.out.println("\n<< ìƒˆë¡œìš´ ë‹¨ì–´ ë“±ë¡ >>");
 		
-		System.out.print("> ´Ü¾î : ");
+		System.out.print("> ë‹¨ì–´ : ");
 		word = keyin.nextLine();
 		if(word.trim().equals("")) {
-			System.out.println("err) ´Ü¾î¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä");
+			System.out.println("err) ë‹¨ì–´ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”");
 			return;
 		}
 		
-		System.out.print("> ¶æ : ");
+		System.out.print("> ëœ» : ");
 		mean = keyin.nextLine();
 
 		if(mean.trim().equals("")) {
-			System.out.println("err) ´Ü¾îÀÇ ¶æÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä");
+			System.out.println("err) ë‹¨ì–´ì˜ ëœ»ì„ ì…ë ¥í•´ì£¼ì„¸ìš”");
 			return;
 		}
 		
@@ -86,62 +87,62 @@ public class GuessingGameUI{
 		
 		int result = dao.appendWord(w);
 		if(result == 0)
-			System.out.println("** »õ·Î¿î ´Ü¾î°¡ µî·ÏµÇ¾ú½À´Ï´Ù.\n");
+			System.out.println("** ìƒˆë¡œìš´ ë‹¨ì–´ê°€ ë“±ë¡ë˜ì—ˆìŠµë‹ˆë‹¤.\n");
 	}
 
-	// ´Ü¾î Ã£±â
+	// ë‹¨ì–´ ì°¾ê¸°
 	private void search() {
 		String word;
-		System.out.println("\n<< ´Ü¾î Ã£±â >>");
+		System.out.println("\n<< ë‹¨ì–´ ì°¾ê¸° >>");
 		
-		System.out.print("> ´Ü¾î : ");
+		System.out.print("> ë‹¨ì–´ : ");
 		word = keyin.nextLine();
 		if(word.trim().equals("")) {
-			System.out.println("err) ´Ü¾î¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä");
+			System.out.println("err) ë‹¨ì–´ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”");
 			return;
 		}		
 	
 		Word findWord = dao.findByWord(word);
 		if(findWord == null) {
-			System.out.println("** ´Ü¾î°¡ ¾ø½À´Ï´Ù.");
+			System.out.println("** ë‹¨ì–´ê°€ ì—†ìŠµë‹ˆë‹¤.");
 			return;
 		}
 		
 		System.out.println(findWord);
 	}
 	
-	// ´Ü¾î ¼öÁ¤
+	// ë‹¨ì–´ ìˆ˜ì •
 	private void update() {
 		String word, mean;
 		
-		System.out.println("\n<< ´Ü¾î ¼öÁ¤ >>");
+		System.out.println("\n<< ë‹¨ì–´ ìˆ˜ì • >>");
 		
-		System.out.print("> ¼öÁ¤ÇÒ ´Ü¾î : ");
+		System.out.print("> ìˆ˜ì •í•  ë‹¨ì–´ : ");
 		word = keyin.nextLine();
 		if(word.trim().equals("")) {
-			System.out.println("err) ´Ü¾î¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä");
+			System.out.println("err) ë‹¨ì–´ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”");
 			return;
 		}		
 	
 		Word findWord = dao.findByWord(word);
 		if(findWord == null) {
-			System.out.println("** ´Ü¾î°¡ ¾ø½À´Ï´Ù.");
+			System.out.println("** ë‹¨ì–´ê°€ ì—†ìŠµë‹ˆë‹¤.");
 			return;
 		}
-		System.out.println("* °Ë»öµÈ ´Ü¾î : " + findWord);
+		System.out.println("* ê²€ìƒ‰ëœ ë‹¨ì–´ : " + findWord);
 		
-		System.out.print("> ´Ü¾î : ");
+		System.out.print("> ë‹¨ì–´ : ");
 		word = keyin.nextLine();
 		if(word.trim().equals("")) {
-			System.out.println("err) ´Ü¾î¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä");
+			System.out.println("err) ë‹¨ì–´ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”");
 			return;
 		}	
 		
-		System.out.print("> ¶æ : ");
+		System.out.print("> ëœ» : ");
 		mean = keyin.nextLine();
 
 		if(mean.trim().equals("")) {
-			System.out.println("err) ´Ü¾îÀÇ ¶æÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä");
+			System.out.println("err) ë‹¨ì–´ì˜ ëœ»ì„ ì…ë ¥í•´ì£¼ì„¸ìš”");
 			return;
 		}
 		
@@ -149,42 +150,42 @@ public class GuessingGameUI{
 		
 		int result = dao.updateWord(w);
 		if(result == 1)
-			System.out.println("** ´Ü¾î°¡ ¼öÁ¤µÇ¾ú½À´Ï´Ù.\n");
+			System.out.println("** ë‹¨ì–´ê°€ ìˆ˜ì •ë˜ì—ˆìŠµë‹ˆë‹¤.\n");
 	}
 	
-	// ´Ü¾î »èÁ¦
+	// ë‹¨ì–´ ì‚­ì œ
 	private void delete() {
 		String word, answer;
 		
-		System.out.println("\n<< ´Ü¾î »èÁ¦ >>");
+		System.out.println("\n<< ë‹¨ì–´ ì‚­ì œ >>");
 		
-		System.out.print("> »èÁ¦ÇÒ ´Ü¾î : ");
+		System.out.print("> ì‚­ì œí•  ë‹¨ì–´ : ");
 		word = keyin.nextLine();
 		if(word.trim().equals("")) {
-			System.out.println("err) ´Ü¾î¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä");
+			System.out.println("err) ë‹¨ì–´ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”");
 			return;
 		}		
 	
 		Word findWord = dao.findByWord(word);
 		if(findWord == null) {
-			System.out.println("** ´Ü¾î°¡ ¾ø½À´Ï´Ù.");
+			System.out.println("** ë‹¨ì–´ê°€ ì—†ìŠµë‹ˆë‹¤.");
 			return;
 		}
 		
 		System.out.println(findWord);
 		
-		System.out.print("** ´Ü¾î¸¦ »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?");
+		System.out.print("** ë‹¨ì–´ë¥¼ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?");
 		answer = keyin.nextLine();
 		
 		if(!answer.equals("y") ) {
-			System.out.println("** »èÁ¦ÀÛ¾÷ÀÌ Ãë¼ÒµÇ¾ú½À´Ï´Ù.");
+			System.out.println("** ì‚­ì œì‘ì—…ì´ ì·¨ì†Œë˜ì—ˆìŠµë‹ˆë‹¤.");
 			return;
 		}
 		int result = dao.deleteWord(findWord.getSeq());
 		
-		System.out.println(result +"°³ ´Ü¾î°¡ »èÁ¦µÇ¾ú½À´Ï´Ù.");
+		System.out.println(result +"ê°œ ë‹¨ì–´ê°€ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.");
 	}
-	// ´Ü¾î ¸ÂÃß±â °ÔÀÓ
+	// ë‹¨ì–´ ë§ì¶”ê¸° ê²Œì„
 	private void guessingGame() {
 		GuessingGame game = new GuessingGame();
 	}
