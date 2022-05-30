@@ -10,6 +10,8 @@ import net.scit.word.vo.Word;
 public class GuessingGameUI{
 	Scanner keyin = new Scanner(System.in);
 	WordDAO dao = new WordDAO();
+
+	
 	
 	public GuessingGameUI() {
 		String choice;
@@ -18,6 +20,8 @@ public class GuessingGameUI{
 			choice = keyin.nextLine();
 			
 			switch(choice) {
+			
+			 
 			case "1" : list();  	break;
 			case "2" : add();   	break;
 			case "3" : search();   	break;
@@ -40,8 +44,8 @@ public class GuessingGameUI{
 		System.out.println("       1) 전체 목록 조회 영혜가 수정함~~");
 		System.out.println("       2) 단어 추가 나도 수정함!!");
 		System.out.println("       3) 단어 찾기");
-		System.out.println("       4) 단어 수정");
-		System.out.println("       5) 단어 삭제");
+		System.out.println("       4) 단어 수gggggg정");
+		System.out.println("       5) 단어 삭제22222222222222");
 		System.out.println("       6) 단어 맞추기 게임");
 		System.out.println("       0) 프로그램 종료");
 		System.out.println("============================");
