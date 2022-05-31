@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace : interface의 full name parameterType : 파라미터로 전달되는 객체의 full 
+	name insert, update, delete => resultType을 지정하지 않아야 한다. -->
+
+<mapper namespace="net.scit.dao.UserMapper">	<!-- 자바의 인터페이스 -->
+
+	
+</mapper>
