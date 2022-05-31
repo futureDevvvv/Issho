@@ -53,7 +53,4 @@ public class UserVO {
 		return "usrid=" + usrid + ", pw=" + pw + ", usrname=" + usrname + ", teamnum=" + teamnum;
 	}
 	
-	
-	
-	
 }

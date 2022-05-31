@@ -7,6 +7,19 @@
 	name insert, update, delete => resultType을 지정하지 않아야 한다. -->
 
 <mapper namespace="net.scit.dao.UserMapper">	<!-- 자바의 인터페이스 -->
+	<select id="findById" resultType="User" parameterType="String">
+		SELECT *
+		FROM
+		USR
+		where usrid = #{usrid}
+	</select>
+	
+	<insert id="joinBoard" parameterType = "User">
+	INSERT INTO USR
+	VALUES 
+	( #{usrid},	#{pw},	
+	#{usrname}, #{teamnum})
+	</insert>
 
 	
 </mapper>
