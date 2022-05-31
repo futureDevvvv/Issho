@@ -8,6 +8,7 @@
 	<properties resource="db.properties"/>
 	
 	<typeAliases>
+		<typeAlias type="net.scit.vo.UserVO" alias="User"/>
 	</typeAliases>
 
 	<environments default="development">
