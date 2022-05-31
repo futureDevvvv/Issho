@@ -1,5 +1,9 @@
 package net.scit.main;
 
-public class CollaboMain {
+import net.scit.ui.JoinUI;
 
+public class CollaboMain {
+	public static void main(String[] args) {
+		new JoinUI();
+	}
 }
