@@ -9,6 +9,8 @@
 	
 	<typeAliases>
 		<typeAlias type="net.scit.vo.UserVO" alias="User"/>
+		<typeAlias type="net.scit.vo.TodoVO" alias="Todo"/>
+		<typeAlias type="net.scit.vo.ScheduleVO" alias="Schedule"/>
 	</typeAliases>
 
 	<environments default="development">
@@ -25,5 +27,7 @@
 	
 	<mappers>
 		<mapper resource="userMapper.xml" />
+		<mapper resource="todoMapper.xml" />
+		<mapper resource="scheduleMapper.xml" />
 	</mappers>
 </configuration>
