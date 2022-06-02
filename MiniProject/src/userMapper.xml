@@ -14,12 +14,40 @@
 		where usrid = #{usrid}
 	</select>
 	
+	<select id="findByTeamnum" resultType="User" parameterType="int">
+		SELECT count(*)
+		FROM
+		USR
+		where teamnum = #{teamnum}
+	</select>
+	
 	<insert id="joinBoard" parameterType = "User">
 	INSERT INTO USR
 	VALUES 
 	( #{usrid},	#{pw},	
 	#{usrname}, #{teamnum})
 	</insert>
+	
+	<select id="Logins" resultType="User" parameterType="String">
+		SELECT *
+		FROM
+		USR
+		where usrid = #{usrid}
+	</select>
+	
+	<select id="userReply" resultType="User" parameterType="String">
+		SELECT *
+		FROM
+		USR
+		where teamnum = #{teamnum}
+	</select>
+	
+	<select id="allReply" resultType="User" parameterType="String">
+		SELECT *
+		FROM
+		USR
+	</select>
+	
 
 	
 </mapper>
