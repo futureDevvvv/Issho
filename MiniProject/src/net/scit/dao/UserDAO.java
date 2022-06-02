@@ -7,41 +7,40 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import net.scit.vo.UserVO;
 
-
 public class UserDAO {
 //회원가입, 로그인
 	SqlSessionFactory factory = MybatisConfig.getSqlSessionFactory();
-		
-	public UserVO findById(String usrid) {  //중복 체크 메소드
+
+	public UserVO findById(String usrid) { // 중복 체크 메소드
 		SqlSession session = null;
 		session = factory.openSession();
-		
+
 		UserMapper mapper = session.getMapper(UserMapper.class);
-		
+
 		UserVO vo = mapper.findById(usrid);
 		session.commit();
 		return vo;
 	}
-	
+
 	public int findByTeamnum(String teamnum) {
 		SqlSession session = null;
 		session = factory.openSession();
-		
+
 		UserMapper mapper = session.getMapper(UserMapper.class);
-		
+
 		int result = mapper.findByTeamnum(teamnum);
 		session.commit();
 		return result;
 	}
 
-	public int joinBoard(UserVO uservo) { //회원가입 메소드
+	public int joinBoard(UserVO uservo) { // 회원가입 메소드
 		SqlSession session = null;
 		session = factory.openSession();
-		
+
 		UserMapper mapper = session.getMapper(UserMapper.class);
 		int result = mapper.joinBoard(uservo);
 		session.commit();
-	
+
 		return result;
 	}
 
@@ -49,13 +48,14 @@ public class UserDAO {
 		SqlSession session = null;
 		session = factory.openSession();
 		UserMapper mapper = session.getMapper(UserMapper.class);
-		
+
 		mapper.Logins(vo);
-		
+
 		session.commit();
 		return vo;
 	}
 
+	// 팀원 목록(개인)
 	public List<UserVO> userReply(UserVO vo) {
 		SqlSession session = null;
 		session = factory.openSession();
@@ -63,7 +63,7 @@ public class UserDAO {
 		List<UserVO> list = mapper.userReply(vo);
 		session.commit();
 		return list;
-		
+
 	}
 
 	public List<UserVO> allReply(UserVO vo) {
@@ -73,28 +73,19 @@ public class UserDAO {
 		List<UserVO> list = mapper.allReply(vo);
 		session.commit();
 		return list;
-		
+
 	}
 
-	
-
-	
-	
-	
-	
-	
-	//팀원 목록
-	public List<UserVO> memberList(String teamnum){
+	// 이름으로 회원 조회
+	public UserVO findByName(String usrname) {
 		SqlSession session = null;
 		session = factory.openSession();
-		
 		UserMapper mapper = session.getMapper(UserMapper.class);
 		
-		List<UserVO> list = mapper.memberList(teamnum);
+		UserVO vo = mapper.findByName(usrname);
 		
-		return list;
+		return vo;
+		
 	}
-	
-	
-	
+
 }

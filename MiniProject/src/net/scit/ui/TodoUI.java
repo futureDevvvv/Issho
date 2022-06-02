@@ -1,14 +1,16 @@
 package net.scit.ui;
 
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,31 +30,63 @@ public class TodoUI extends JFrame {
 	TodoDAO todoDao = new TodoDAO();
 	UserDAO userDao = new UserDAO();
 
-	List<UserVO> memberList = userDao.memberList(null);
-	Vector<String> memVector = new Vector<String>();
-
 	/**
 	 * serialVersion
 	 */
 	private static final long serialVersionUID = 2721396482567223817L;
 
-	TodoUI() {
+	TodoUI(UserVO vo) {
+
+		String name = vo.getUsrname();
+		String teamnum = vo.getTeamnum();
+
+		String teamname = null;
+
+		switch (teamnum) {
+		case "10":
+			teamname = "기획부";
+			break;
+		case "20":
+			teamname = "영업부";
+			break;
+		case "30":
+			teamname = "인사부";
+			break;
+		case "40":
+			teamname = "개발부";
+			break;
+		}
+
+		List<UserVO> memberList = userDao.userReply(vo);
+		Vector<String> memVector = new Vector<String>();
+
 		Container c = getContentPane();
 		c.setLayout(null);
 
 		// 창 닫기 버튼 클릭 시 종료
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+		Font forTitle = new Font("굴림", Font.BOLD, 25);
+
+		JLabel title = new JLabel("업무 관리   ");
+		title.setFont(forTitle);
+		title.setBounds(20, 10, 150, 30);
+		c.add(title);
+		
+		JLabel info = new JLabel(teamname + " " + name);
+		info.setBounds(130, 10, 150, 30);
+		c.add(info);
+
 		JLabel lb1 = new JLabel("조회 범위");
-		lb1.setBounds(20, 20, 100, 30);
+		lb1.setBounds(20, 50, 100, 30);
 		c.add(lb1);
 
 		// 라디오버튼 생성
 		JRadioButton rd1 = new JRadioButton("개인별");
 		JRadioButton rd2 = new JRadioButton("팀별");
 
-		rd1.setBounds(100, 20, 70, 30);
-		rd2.setBounds(170, 20, 80, 30);
+		rd1.setBounds(100, 50, 70, 30);
+		rd2.setBounds(170, 50, 80, 30);
 
 		// 1번 라디오 버튼 눌려져 있도록
 		rd1.setSelected(true);
@@ -67,22 +101,16 @@ public class TodoUI extends JFrame {
 		c.add(rd1);
 		c.add(rd2);
 
-		JLabel lb2 = new JLabel("진행도별");
-		lb2.setBounds(20, 50, 100, 30);
-		c.add(lb2);
-
 		// 체크박스 생성
-		JCheckBox chk1 = new JCheckBox("진행전", true);
-		JCheckBox chk2 = new JCheckBox("진행중", true);
-		JCheckBox chk3 = new JCheckBox("완료", true);
-
-		chk1.setBounds(100, 50, 70, 30);
-		chk2.setBounds(200, 50, 70, 30);
-		chk3.setBounds(300, 50, 100, 30);
-
-		c.add(chk1);
-		c.add(chk2);
-		c.add(chk3);
+		/*
+		 * JCheckBox chk1 = new JCheckBox("진행전", true); JCheckBox chk2 = new
+		 * JCheckBox("진행중", true); JCheckBox chk3 = new JCheckBox("완료", true);
+		 * 
+		 * chk1.setBounds(100, 50, 70, 30); chk2.setBounds(200, 50, 70, 30);
+		 * chk3.setBounds(300, 50, 100, 30);
+		 * 
+		 * c.add(chk1); c.add(chk2); c.add(chk3);
+		 */
 
 		// 할 일 검색
 		JLabel lb3 = new JLabel("검색어");
@@ -123,98 +151,107 @@ public class TodoUI extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
 				if (rd1.isSelected()) {
 
 					if (tf1.getText().length() == 0 || tf1.getText().equals("")) {
 
-						List<TodoVO> list = todoDao.listByPerson(null);
+						List<TodoVO> list = todoDao.listByPerson(vo.getUsrid());
 
 						for (int i = 0; i < list.size(); i++) {
 
 							if (list.get(i).getT_state() == 0) {
-								jtx1.append(list.get(i).getT_content() + "\n" + list.get(i).getUsrid() + "\n"
-										+ list.get(i).getT_regdate() + "\n");
-								jtx1.append("------------------------------");
+								jtx1.append(list.get(i).getT_content() + "\n" + userDao.findById(list.get(i).getUsrid())
+										+ "\n" + list.get(i).getT_regdate() + "\n");
+								jtx1.append("------------------------------------\n");
 							} else if (list.get(i).getT_state() == 1) {
-								jtx2.append(list.get(i).getT_content() + "\n" + list.get(i).getUsrid() + "\n"
-										+ list.get(i).getT_regdate() + "\n");
-								jtx2.append("------------------------------");
+								jtx2.append(list.get(i).getT_content() + "\n" + userDao.findById(list.get(i).getUsrid())
+										+ "\n" + list.get(i).getT_regdate() + "\n");
+								jtx2.append("------------------------------------\n");
 							} else {
-								jtx3.append(list.get(i).getT_content() + "\n" + list.get(i).getUsrid() + "\n"
-										+ list.get(i).getT_regdate() + "\n");
-								jtx3.append("------------------------------");
+								jtx3.append(list.get(i).getT_content() + "\n" + userDao.findById(list.get(i).getUsrid())
+										+ "\n" + list.get(i).getT_regdate() + "\n");
+								jtx3.append("------------------------------------\n");
 							}
 						}
-					}
+					} else {
+						String searchWord = tf1.getText();
 
-				} else {
-					String searchWord = tf1.getText();
+						Map<String, String> map = new HashMap<>();
 
-					List<TodoVO> list = todoDao.listByPersonSearch(null);
+						map.put("usrid", vo.getUsrid());
+						map.put("searchWord", searchWord);
 
-					for (int i = 0; i < list.size(); i++) {
+						List<TodoVO> list = todoDao.listByPersonSearch(map);
 
-						if (list.get(i).getT_state() == 0) {
-							jtx1.append(list.get(i).getT_content() + "\n" + list.get(i).getUsrid() + "\n"
-									+ list.get(i).getT_regdate() + "\n");
-							jtx1.append("------------------------------");
-						} else if (list.get(i).getT_state() == 1) {
-							jtx2.append(list.get(i).getT_content() + "\n" + list.get(i).getUsrid() + "\n"
-									+ list.get(i).getT_regdate() + "\n");
-							jtx2.append("------------------------------");
-						} else {
-							jtx3.append(list.get(i).getT_content() + "\n" + list.get(i).getUsrid() + "\n"
-									+ list.get(i).getT_regdate() + "\n");
-							jtx3.append("------------------------------");
+						for (int i = 0; i < list.size(); i++) {
+
+							if (list.get(i).getT_state() == 0) {
+								jtx1.append(list.get(i).getT_content() + "\n" + userDao.findById(list.get(i).getUsrid())
+										+ "\n" + list.get(i).getT_regdate() + "\n");
+								jtx1.append("------------------------------------\n");
+							} else if (list.get(i).getT_state() == 1) {
+								jtx2.append(list.get(i).getT_content() + "\n" + userDao.findById(list.get(i).getUsrid())
+										+ "\n" + list.get(i).getT_regdate() + "\n");
+								jtx2.append("------------------------------------\n");
+							} else {
+								jtx3.append(list.get(i).getT_content() + "\n" + userDao.findById(list.get(i).getUsrid())
+										+ "\n" + list.get(i).getT_regdate() + "\n");
+								jtx3.append("------------------------------------\n");
+							}
 						}
 					}
 				}
 
 				if (rd2.isSelected()) {
-					/*
-					 * chk1.isSelected(); chk2.isSelected(); chk3.isSelected();
-					 */
 
 					if (tf1.getText().length() == 0 || tf1.getText().equals("")) {
-						List<TodoVO> list = todoDao.listByTeam(null);
+
+						List<TodoVO> list = todoDao.listByTeam(vo.getTeamnum());
 
 						for (int i = 0; i < list.size(); i++) {
 
 							if (list.get(i).getT_state() == 0) {
-								jtx1.append(list.get(i).getT_content() + "\n" + list.get(i).getUsrid() + "\n"
-										+ list.get(i).getT_regdate() + "\n");
+								jtx1.append(list.get(i).getT_content() + "\n" + userDao.findById(list.get(i).getUsrid())
+										+ "\n" + list.get(i).getT_regdate() + "\n");
 
-								jtx1.append("------------------------------");
+								jtx1.append("------------------------------------\n");
 							} else if (list.get(i).getT_state() == 1) {
-								jtx2.append(list.get(i).getT_content() + "\n" + list.get(i).getUsrid() + "\n"
-										+ list.get(i).getT_regdate() + "\n");
-								jtx2.append("------------------------------");
+								jtx2.append(list.get(i).getT_content() + "\n" + userDao.findById(list.get(i).getUsrid())
+										+ "\n" + list.get(i).getT_regdate() + "\n");
+								jtx2.append("------------------------------------\n");
 							} else {
-								jtx3.append(list.get(i).getT_content() + "\n" + list.get(i).getUsrid() + "\n"
-										+ list.get(i).getT_regdate() + "\n");
-								jtx3.append("------------------------------");
+								jtx3.append(list.get(i).getT_content() + "\n" + userDao.findById(list.get(i).getUsrid())
+										+ "\n" + list.get(i).getT_regdate() + "\n");
+								jtx3.append("------------------------------------\n");
 							}
 						}
 
 					} else {
-						tf1.getText();
-						List<TodoVO> list = todoDao.listByTeamSearch(null);
+						String searchWord = tf1.getText();
+
+						Map<String, String> map = new HashMap<>();
+
+						map.put("teamnum", vo.getTeamnum());
+						map.put("searchWord", searchWord);
+
+						List<TodoVO> list = todoDao.listByTeamSearch(map);
 
 						for (int i = 0; i < list.size(); i++) {
 
+							System.out.println("2번");
+
 							if (list.get(i).getT_state() == 0) {
-								jtx1.append(list.get(i).getT_content() + "\n" + list.get(i).getUsrid() + "\n"
-										+ list.get(i).getT_regdate() + "\n");
-								jtx1.append("------------------------------");
+								jtx1.append(list.get(i).getT_content() + "\n" + userDao.findById(list.get(i).getUsrid())
+										+ "\n" + list.get(i).getT_regdate() + "\n");
+								jtx1.append("------------------------------------\n");
 							} else if (list.get(i).getT_state() == 1) {
-								jtx2.append(list.get(i).getT_content() + "\n" + list.get(i).getUsrid() + "\n"
-										+ list.get(i).getT_regdate() + "\n");
-								jtx2.append("------------------------------");
+								jtx2.append(list.get(i).getT_content() + "\n" + userDao.findById(list.get(i).getUsrid())
+										+ "\n" + list.get(i).getT_regdate() + "\n");
+								jtx2.append("------------------------------------\n");
 							} else {
-								jtx3.append(list.get(i).getT_content() + "\n" + list.get(i).getUsrid() + "\n"
-										+ list.get(i).getT_regdate() + "\n");
-								jtx3.append("------------------------------");
+								jtx3.append(list.get(i).getT_content() + "\n" + userDao.findById(list.get(i).getUsrid())
+										+ "\n" + list.get(i).getT_regdate() + "\n");
+								jtx3.append("------------------------------------\n");
 							}
 						}
 					}
@@ -233,7 +270,7 @@ public class TodoUI extends JFrame {
 		c.add(tf2);
 
 		JLabel lb5 = new JLabel("담당자");
-		lb5.setBounds(20, 500, 100, 30);
+		lb5.setBounds(20, 510, 100, 30);
 		c.add(lb5);
 
 		for (int i = 0; i < memberList.size(); i++) {
@@ -244,11 +281,11 @@ public class TodoUI extends JFrame {
 
 		// JList<String> memberNameList = new JList<String>(memVector);
 		// JScrollPane jsp4 = new JScrollPane(memCombo);
-		memCombo.setBounds(100, 530, 100, 30);
+		memCombo.setBounds(100, 510, 100, 30);
 		c.add(memCombo);
 
 		JLabel lb6 = new JLabel("상태");
-		lb6.setBounds(20, 530, 100, 30);
+		lb6.setBounds(20, 650, 100, 30);
 		c.add(lb6);
 		JRadioButton rd3 = new JRadioButton("진행전");
 		JRadioButton rd4 = new JRadioButton("진행중");
@@ -264,24 +301,24 @@ public class TodoUI extends JFrame {
 		groupRd1.add(rd4);
 		groupRd1.add(rd5);
 
-		rd3.setBounds(100, 530, 70, 30);
-		rd4.setBounds(200, 530, 70, 30);
-		rd5.setBounds(300, 530, 100, 30);
+		rd3.setBounds(100, 650, 70, 30);
+		rd4.setBounds(200, 650, 70, 30);
+		rd5.setBounds(300, 650, 100, 30);
 
 		c.add(rd3);
 		c.add(rd4);
 		c.add(rd5);
 
 		JButton btn2 = new JButton("입력");
-		btn2.setBounds(550, 570, 100, 30);
+		btn2.setBounds(170, 700, 100, 30);
 		c.add(btn2);
-		
+
 		JButton btn3 = new JButton("수정");
-		btn3.setBounds(550, 570, 100, 30);
+		btn3.setBounds(300, 700, 100, 30);
 		c.add(btn3);
-		
+
 		JButton btn4 = new JButton("삭제");
-		btn4.setBounds(550, 570, 100, 30);
+		btn4.setBounds(430, 700, 100, 30);
 		c.add(btn4);
 
 		btn2.addActionListener(new ActionListener() {
@@ -293,7 +330,7 @@ public class TodoUI extends JFrame {
 				String selectedMem = memCombo.getSelectedItem().toString();
 
 				// 이름으로 user객체 찾기
-				UserVO user = userDao.findById(selectedMem);
+				UserVO user = userDao.findByName(selectedMem);
 				String memId = user.getUsrid();
 				String teamnum = user.getTeamnum();
 
@@ -309,11 +346,11 @@ public class TodoUI extends JFrame {
 
 				int InsertResult = todoDao.insertTodo(new TodoVO(todo, memId, teamnum, state));
 
+				tf2.setText("");
+				rd3.setSelected(true);
+
 				if (InsertResult == 1) {
 					JOptionPane.showMessageDialog(null, "할 일이 등록되었습니다.");
-
-					tf2.setText("");
-					rd3.setSelected(true);
 
 				} else {
 					JOptionPane.showMessageDialog(null, "오류가 발생했습니다.", "에러", JOptionPane.ERROR_MESSAGE);
@@ -334,7 +371,4 @@ public class TodoUI extends JFrame {
 
 	}
 
-	public static void main(String[] args) {
-		new TodoUI();
-	}
 }
