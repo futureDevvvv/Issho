@@ -12,42 +12,66 @@ public class TodoDAO {
 
 	SqlSessionFactory factory = MybatisConfig.getSqlSessionFactory();
 
-	public List<TodoVO> listByPerson(Map<String, String> map) {
+	public List<TodoVO> listByPerson(String usrid) {
 		SqlSession session = null;
 		session = factory.openSession();
 
 		TodoMapper mapper = session.getMapper(TodoMapper.class);
 
-		List<TodoVO> list = mapper.listByPerson(map);
+		List<TodoVO> list = mapper.listByPerson(usrid);
+
+		return list;
+
+	}
+
+	public List<TodoVO> listByPersonSearch(Map<String, String> map) {
+		SqlSession session = null;
+		session = factory.openSession();
+
+		TodoMapper mapper = session.getMapper(TodoMapper.class);
+
+		List<TodoVO> list = mapper.listByPersonSearch(map);
 
 		return list;
 
 	}
 
 	// 팀별 조회
-	public List<TodoVO> listByTeam(Map<String, String> map) {
+	public List<TodoVO> listByTeam(String teamnum) {
 		SqlSession session = null;
 		session = factory.openSession();
 
 		TodoMapper mapper = session.getMapper(TodoMapper.class);
 
-		List<TodoVO> list = mapper.listByTeam(map);
+		List<TodoVO> list = mapper.listByTeam(teamnum);
+
+		return list;
+	}
+	
+	public List<TodoVO> listByTeamSearch(Map<String, String> map) {
+		SqlSession session = null;
+		session = factory.openSession();
+
+		TodoMapper mapper = session.getMapper(TodoMapper.class);
+
+		List<TodoVO> list = mapper.listByTeamSearch(map);
 
 		return list;
 	}
 
 	// 상태별, 등록일, 중요도별 조회
-	/*public List<TodoVO> listByOption(String state) {
-		SqlSession session = null;
-		session = factory.openSession();
-
-		TodoMapper mapper = session.getMapper(TodoMapper.class);
-		
-		
-
-		return null;
-
-	}*/
+	/*
+	 * public List<TodoVO> listByOption(String state) { SqlSession session = null;
+	 * session = factory.openSession();
+	 * 
+	 * TodoMapper mapper = session.getMapper(TodoMapper.class);
+	 * 
+	 * 
+	 * 
+	 * return null;
+	 * 
+	 * }
+	 */
 
 	// 등록일별 조회
 	/*
@@ -57,30 +81,30 @@ public class TodoDAO {
 	 */
 
 	// 할 일 검색
-	public List<TodoVO> searchTodo(Map<String, String> map) {
-		
+	/*public List<TodoVO> searchTodo(Map<String, String> map) {
+
 		SqlSession session = null;
 		session = factory.openSession();
 
 		TodoMapper mapper = session.getMapper(TodoMapper.class);
-		
+
 		List<TodoVO> list = mapper.searchTodo(map);
-		
+
 		return list;
 
-	}
+	}*/
 
 	// 등록
 	public int insertTodo(TodoVO todo) {
-		
+
 		SqlSession session = null;
 		session = factory.openSession();
 
 		TodoMapper mapper = session.getMapper(TodoMapper.class);
-		
+
 		int result = mapper.insertTodo(todo);
 		session.commit();
-		
+
 		return result;
 
 	}
@@ -91,10 +115,10 @@ public class TodoDAO {
 		session = factory.openSession();
 
 		TodoMapper mapper = session.getMapper(TodoMapper.class);
-		
+
 		int result = mapper.updateTodo(todo);
 		session.commit();
-		
+
 		return result;
 	}
 
@@ -104,10 +128,10 @@ public class TodoDAO {
 		session = factory.openSession();
 
 		TodoMapper mapper = session.getMapper(TodoMapper.class);
-		
+
 		int result = mapper.deleteTodo(t_num);
 		session.commit();
-		
+
 		return result;
 	}
 }

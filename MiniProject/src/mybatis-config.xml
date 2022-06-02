@@ -29,6 +29,5 @@
 		<mapper resource="userMapper.xml" />
 		<mapper resource="todoMapper.xml" />
 		<mapper resource="scheduleMapper.xml" />
-		<mapper resource="UserMapper.xml" />
 	</mappers>
 </configuration>

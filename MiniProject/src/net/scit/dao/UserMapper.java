@@ -1,5 +1,7 @@
 package net.scit.dao;
 
+import java.util.List;
+
 import net.scit.vo.UserVO;
 
 public interface UserMapper {
@@ -8,7 +10,9 @@ public interface UserMapper {
 	public UserVO findById(String usrid); 
 	
 	//회원가입
-	public int joinBoard(UserVO usrvo); 
+	public int joinBoard(UserVO usrvo);
+
+	public List<UserVO> memberList(String teamnum); 
 	
 	
 }

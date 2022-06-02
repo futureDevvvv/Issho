@@ -13,13 +13,12 @@ public class TodoVO {
 		super();
 	}
 
-	public TodoVO(String t_content, String usrid, String teamnum, int t_state, int t_priority) {
+	public TodoVO(String t_content, String usrid, String teamnum, int t_state) {
 		super();
 		this.t_content = t_content;
 		this.usrid = usrid;
 		this.teamnum = teamnum;
 		this.t_state = t_state;
-		this.t_priority = t_priority;
 	}
 
 	public String getT_num() {
