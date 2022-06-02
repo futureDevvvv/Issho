@@ -13,13 +13,19 @@
 		USR
 		where usrid = #{usrid}
 	</select>
-	
-	<insert id="joinBoard" parameterType = "User">
-	INSERT INTO USR
-	VALUES 
-	( #{usrid},	#{pw},	
-	#{usrname}, #{teamnum})
+
+	<insert id="joinBoard" parameterType="User">
+		INSERT INTO USR
+		VALUES
+		( #{usrid}, #{pw},
+		#{usrname}, #{teamnum})
 	</insert>
 
-	
+	<select id="memberList" parameterType="string" resultType="User">
+		SELECT *
+		FROM USR
+		WHERE teamnum = #{teamnum}
+	</select>
+
+
 </mapper>

@@ -1,5 +1,7 @@
 package net.scit.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -30,6 +32,18 @@ public class UserDAO {
 		
 		
 		return result;
+	}
+	
+	//팀원 목록
+	public List<UserVO> memberList(String teamnum){
+		SqlSession session = null;
+		session = factory.openSession();
+		
+		UserMapper mapper = session.getMapper(UserMapper.class);
+		
+		List<UserVO> list = mapper.memberList(teamnum);
+		
+		return list;
 	}
 	
 	
