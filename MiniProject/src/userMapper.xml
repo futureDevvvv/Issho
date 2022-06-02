@@ -13,7 +13,7 @@
 		USR
 		where usrid = #{usrid}
 	</select>
-	
+
 	<select id="findByTeamnum" resultType="User" parameterType="int">
 		SELECT count(*)
 		FROM
@@ -26,6 +26,13 @@
 	VALUES 
 	( #{usrid},	#{pw},	
 	#{usrname}, #{teamnum})
+
+	<insert id="joinBoard" parameterType="User">
+		INSERT INTO USR
+		VALUES
+		( #{usrid}, #{pw},
+		#{usrname}, #{teamnum})
+
 	</insert>
 	
 	<select id="Logins" resultType="User" parameterType="String">
@@ -47,7 +54,6 @@
 		FROM
 		USR
 	</select>
-	
 
-	
+
 </mapper>

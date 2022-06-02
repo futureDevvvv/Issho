@@ -83,6 +83,18 @@ public class UserDAO {
 	
 	
 	
+	//팀원 목록
+	public List<UserVO> memberList(String teamnum){
+		SqlSession session = null;
+		session = factory.openSession();
+		
+		UserMapper mapper = session.getMapper(UserMapper.class);
+		
+		List<UserVO> list = mapper.memberList(teamnum);
+		
+		return list;
+	}
+	
 	
 	
 }

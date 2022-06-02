@@ -12,7 +12,9 @@ public interface UserMapper {
 	public int findByTeamnum(String teamnum); 
 	
 	//회원가입
-	public int joinBoard(UserVO usrvo); 
+	public int joinBoard(UserVO usrvo);
+
+	public List<UserVO> memberList(String teamnum); 
 	
 	//로그인
 	public UserVO Logins(UserVO vo); 
