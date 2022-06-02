@@ -23,6 +23,8 @@ public interface UserMapper {
 	//관리자 전체조회
 	public List<UserVO> allReply(UserVO vo);
 	
+	//이름으로 팀원 조회
+	public UserVO findByName(String usrname);
 	
 }
 
