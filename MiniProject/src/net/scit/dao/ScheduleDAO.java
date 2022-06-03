@@ -10,7 +10,13 @@ import net.scit.vo.ScheduleVO;
 public class ScheduleDAO {
 
 	SqlSessionFactory factory = MybatisConfig.getSqlSessionFactory();
-
+	
+	//월별 검색
+	
+	
+	//일별 검색
+	
+	
 	// 내용으로 검색
 	public List<ScheduleVO> searchSchedule(Map<String, String> map){
 		return null;
