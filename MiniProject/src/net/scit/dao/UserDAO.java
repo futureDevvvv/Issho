@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import net.scit.vo.BoardVO;
 import net.scit.vo.UserVO;
 
 
@@ -75,6 +76,9 @@ public class UserDAO {
 		return list;
 		
 	}
+
+
+
 
 	
 

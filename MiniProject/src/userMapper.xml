@@ -28,21 +28,21 @@
 	#{usrname}, #{teamnum})
 	</insert>
 	
-	<select id="Logins" resultType="User" parameterType="String">
+	<select id="Logins" resultType="User" parameterType="User">
 		SELECT *
 		FROM
 		USR
 		where usrid = #{usrid}
 	</select>
 	
-	<select id="userReply" resultType="User" parameterType="String">
+	<select id="userReply" resultType="User" parameterType="User">
 		SELECT *
 		FROM
 		USR
 		where teamnum = #{teamnum}
 	</select>
 	
-	<select id="allReply" resultType="User" parameterType="String">
+	<select id="allReply" resultType="User" parameterType="User">
 		SELECT *
 		FROM
 		USR

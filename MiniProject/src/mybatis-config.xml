@@ -11,6 +11,7 @@
 		<typeAlias type="net.scit.vo.UserVO" alias="User"/>
 		<typeAlias type="net.scit.vo.TodoVO" alias="Todo"/>
 		<typeAlias type="net.scit.vo.ScheduleVO" alias="Schedule"/>
+		<typeAlias type="net.scit.vo.BoardVO" alias="Board"/>
 	</typeAliases>
 
 	<environments default="development">
@@ -29,6 +30,6 @@
 		<mapper resource="userMapper.xml" />
 		<mapper resource="todoMapper.xml" />
 		<mapper resource="scheduleMapper.xml" />
-		<!-- <mapper resource="UserMapper.xml" /> -->
+		<mapper resource="BoardMapper.xml" />
 	</mappers>
 </configuration>

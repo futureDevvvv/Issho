@@ -21,16 +21,17 @@ public class JoinUI {
 		System.out.println(">10자 이내로 작성해주세요.");
 		System.out.print("> ID를 입력하세요 : ");
 		usrid = sc.nextLine();
+		System.out.println("아아");
 		if (usrid.trim().equals("")) {
 			System.out.println("문자로 입력해주세요");
 			return;
 		}
-
+		System.out.println("오오");
 		if (dao.findById(usrid) != null) {
 			System.out.println("아이디가 중복됩니다.");
 			return;
 		}
-
+		System.out.println("에에");
 		if (usrid.length() > 10) {
 			System.out.println("길이를 10자 이내로 맞춰주세요.");
 			return;
