@@ -19,6 +19,11 @@ public class LoginUI {
 		while (true) {
 			Menu();
 			choice = sc.nextLine();
+			
+			if(Integer.parseInt(choice) == 3) {
+				new JoinUI();
+			}
+			
 			String usrid;
 			System.out.print("> ID를 입력하세요 : ");
 			usrid = sc.nextLine();
@@ -32,7 +37,6 @@ public class LoginUI {
 				System.out.println("아이디가 존재하지 않습니다.");
 				return;
 			}
-			
 			if(Integer.parseInt(vo.getTeamnum()) != 0) {//팀번호가 0이 아니면 
 				switch (choice) {
 				case "1": login(vo); break;
@@ -107,7 +111,7 @@ public class LoginUI {
 			return;
 		}
 	}
-	
+	//유저 메뉴
 	private void loginMenu(UserVO vo) {
 		String choice;
 		while (true) {
@@ -116,8 +120,7 @@ public class LoginUI {
 
 			switch (choice) {
 			case "1": userReply(vo); break;
-//			case "2":  break;
-//			case "3":  reak;
+			case "2":  new BoardUI(vo); break;
 			case "4": new TodoUI(vo); 
 				break;
 			
@@ -131,7 +134,7 @@ public class LoginUI {
 		}
 		
 	}
-	
+	//관리자 메뉴
 	private void ganginMenu(UserVO vo) {
 		String choice;
 		while (true) {
@@ -140,7 +143,7 @@ public class LoginUI {
 
 			switch (choice) {
 			case "1": allReply(vo); break;
-//			case "2":  break;
+			case "2":  new BoardUI(vo); break;
 //			case "3":  break;
 //			case "3":  break;
 			
