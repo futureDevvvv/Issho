@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.scit.vo.BoardVO;
+import net.scit.vo.UserVO;
 
 public interface BoardMapper {
 	//게시글 전체 출력
@@ -20,7 +21,7 @@ public interface BoardMapper {
 	//게시글 검색
 	public List<BoardVO>  searchBoard(Map<String, Object> map);
 	//게시글 삭제
-	public int deletBoard(int boardunm); //
+	public int deletBoard(String b_num); //
 	//게시글 수정
 	public int updateBoard(BoardVO board);
 	//조회수 수정
@@ -29,6 +30,8 @@ public interface BoardMapper {
 	public int getCount();
 
 	public BoardVO findById(int boardnum);
+
+	public BoardVO beBoard(String b_num);	//기존값 찾기
 
 	
 	

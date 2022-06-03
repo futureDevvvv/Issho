@@ -19,26 +19,52 @@ public class BoardUI {
 	BoardDAO bdao = new BoardDAO();
 	
 	public BoardUI(UserVO vo) {
-		String choice;
-		while(true) {
-			mainMenu();
-			choice = sc.nextLine();
-			
-			switch (choice) {
-			case "1": input(vo); break;
-			case "2": list(vo); break;
-			case "3": read(vo); break;
-//			case "4": delete(vo); break;
-//			case "5": update(vo); break;
-//			case "6": search(vo); break;
-			case "7": count(vo); break;
-			case "0": 
-				return;
-			default:
-				System.out.println("err) 메뉴를 다시 선택해 주세요");
+		
+		if(Integer.parseInt(vo.getTeamnum()) != 0) {//일반회원 화면
+			String choice;
+			while(true) {
+				mainMenu();
+				choice = sc.nextLine();
+				
+				switch (choice) {
+				case "1": input(vo); break;
+				case "2": list(vo); break;
+				case "3": read(vo); break;
+				case "4": delete(vo); break;
+//				case "5": update(vo); break;
+				case "6": search(vo); break;
+				case "7": count(vo); break;
+				case "0": 
+					return;
+				default:
+					System.out.println("err) 메뉴를 다시 선택해 주세요");
+				}
 			}
-//			keyin.nextLine(); //버퍼 비우기
+		}else if (Integer.parseInt(vo.getTeamnum()) == 0){ //관리자 화면
+			String choice;
+			while(true) {
+				ganMenu();
+				choice = sc.nextLine();
+				
+				switch (choice) {
+				case "1": list(vo); break;
+				case "2": read(vo); break;
+				case "3": delete(vo); break;
+//				case "4": update(vo); break;
+				case "5": search(vo); break;
+				case "6": count(vo); break;
+				case "0": 
+					return;
+				default:
+					System.out.println("err) 메뉴를 다시 선택해 주세요");
+				}
+			}
 		}
+		
+		
+		
+		
+		
 	}
 
 	private void count(UserVO vo) {
@@ -101,35 +127,59 @@ public class BoardUI {
 		b_num = sc.nextLine();
 		BoardVO result = bdao.readBoard(b_num);
 		
+		System.out.println("==============내      용==============");
 		System.out.println(result.getB_content());
 		
 //		new ReplyUI(result.getBoardnum()); //덧글추가할시
 
 	}
-//
-//	private void delete(UserVO vo) {
-//		String answer;
-//		int boardnum;
-//		System.out.print("삭제할 ID는 무엇입니까 : ");
-//		boardnum = keyin.nextInt();
-//		keyin.nextLine();
-//		BoardVO b = dao.findById(boardnum);
-//		if(b == null) {
-//			System.out.println("** 해당 아이디의 회원이 없습니다.");
-//			return;
-//		}
-//		System.out.print("** 정말로 탈퇴하시겠습니까? (y/n)");
-//		answer = keyin.next();
-//		if(answer.equals("y")) {
-//			dao.deletBoard(boardnum); // 리턴값을 받지 않아도 된다. ==> 
-//			System.out.println("** 삭제 완료\n");
-//			return;
-//		}else {
-//			System.out.println("** 삭제 작업이 취소되었습니다.");
-//		}
-//		
-//	}
-//
+
+	private void delete(UserVO vo) {
+		String answer;
+		String b_num;
+		String teamnum;
+		System.out.print("삭제할 글번호는 무엇입니까 : ");
+		b_num = sc.nextLine();
+		if(b_num.equals("")) { //  
+			System.out.println("잘못입력하셧습니다.");
+			return;
+		}
+		teamnum = vo.getTeamnum();
+		BoardVO aat = bdao.beBoard(b_num);
+		
+			if (Integer.parseInt(teamnum) != 0) { // 관리자인지아닌지확인
+				String usrid= vo.getUsrid();
+				if (usrid.equals(aat.getUsrid())) { //id값을 서로 비교해서 맞으면 실행 "스트링은 equals로 비교"
+					System.out.print("** 정말로 글을 지우시겠습니까? (y/n)");
+					answer = sc.nextLine();
+					if (answer.equals("y")) {
+						bdao.deletBoard(b_num); // 리턴값을 받지 않아도 된다. ==>
+						System.out.println("** 삭제 완료\n");
+						return;
+					} else {
+						System.out.println("** 삭제 작업이 취소되었습니다.");
+					}
+				}else { //id값이 서로 안맞으면 나옴
+					System.out.println("작성자가 아닙니다.");
+					return;
+				}
+			} else {//관리자일 경우
+				System.out.print("** 정말로 글을 지우시겠습니까? (y/n)");
+				answer = sc.nextLine();
+				if (answer.equals("y")) {
+					bdao.deletBoard(b_num); // 리턴값을 받지 않아도 된다. ==>
+					System.out.println("** 삭제 완료\n");
+					return;
+				} else {
+					System.out.println("** 삭제 작업이 취소되었습니다.");
+				}
+			}
+		
+		
+		
+		
+	}
+
 //	private void update(UserVO vo) {
 //		int boardnum;
 //		String title;
@@ -164,20 +214,20 @@ public class BoardUI {
 //		
 //	}
 //
-//	private void search(UserVO vo) {
-//		List<UserVO> list = dao.listBoard();
-//		Iterator<UserVO> iter = list.iterator();
-//		BoardVO board = new BoardVO();
-//		keyin.nextLine();
-//		System.out.print("> 내용중 찾을 단어를 입력하세요 : ");
-//		String a = keyin.nextLine();
-//		map.put(a, board);
-//		while(iter.hasNext())
-//			System.out.println(iter.next());
-//		
-//		dao.searchBoard(map);
-//		System.out.println(map.size());
-//	}
+	private void search(UserVO vo) {
+		
+		List<BoardVO> list = bdao.listBoard(vo.getTeamnum());
+		Iterator<BoardVO> iter = list.iterator();
+		BoardVO board = new BoardVO();
+		
+		System.out.print("> 내용중 찾을 단어를 입력하세요 : ");
+		String a = sc.nextLine();
+		map.put(a, board);
+		while(iter.hasNext())
+			System.out.println(iter.next());
+		bdao.searchBoard(map);
+		System.out.println(map.size());
+	}
 
 	private void mainMenu() {
 		System.out.println();
@@ -189,6 +239,20 @@ public class BoardUI {
 		System.out.println("      5) 게시글 수정");
 		System.out.println("      6) 게시글 검색");
 		System.out.println("      7) 총 게시글 수");
+		System.out.println("      0) 프로그램 종료");
+		System.out.println("==================================");
+		System.out.print	("                선택 > ");
+	}
+	
+	private void ganMenu() {
+		System.out.println();
+		System.out.println("============[오픈 게시판]===============");
+		System.out.println("      1) 전체 글목록 조회");
+		System.out.println("      2) 게시글 읽기");
+		System.out.println("      3) 게시글 삭제");
+		System.out.println("      4) 게시글 수정");
+		System.out.println("      5) 게시글 검색");
+		System.out.println("      6) 총 게시글 수");
 		System.out.println("      0) 프로그램 종료");
 		System.out.println("==================================");
 		System.out.print	("                선택 > ");

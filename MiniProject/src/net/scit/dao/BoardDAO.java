@@ -17,7 +17,6 @@ public class BoardDAO {
 		SqlSession session = null;
 		session = factory.openSession();
 		BoardMapper mapper = session.getMapper(BoardMapper.class);
-		int result = mapper.getCount();
 		 mapper.getCount();
 		 if(mapper.getCount() == 0 ) {
 			 System.out.print("아무것도 존재하지 않습니다.");
@@ -38,6 +37,8 @@ public class BoardDAO {
 		session.commit();
 		return list;
 	}
+	
+
 	
 	public List<BoardVO> adminlistBoard(UserVO vo) {
 		SqlSession session = null;
@@ -68,6 +69,41 @@ public class BoardDAO {
 		int result = mapper.weiterBoard(board);
 		session.commit();
 		return result;
+	}
+	
+	public BoardVO beBoard(String b_num) {
+		SqlSession session = null;
+		session = factory.openSession();
+		
+		
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		BoardVO result = mapper.beBoard(b_num);
+
+		session.commit();
+		
+		return result;
+	}
+	
+	
+
+	public void deletBoard(String b_num) {
+		SqlSession session = null;
+		session = factory.openSession();
+		
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		mapper.deletBoard(b_num);
+
+		session.commit();
+	}
+
+	public void searchBoard(Map<String, Object> map) {
+		SqlSession session = null;
+		session = factory.openSession();
+		
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		mapper.searchBoard(map);
+		session.commit();
+		
 	}
 	
 }
