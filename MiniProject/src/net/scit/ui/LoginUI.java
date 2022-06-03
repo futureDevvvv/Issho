@@ -121,9 +121,16 @@ public class LoginUI {
 
 			switch (choice) {
 			case "1": userReply(vo); break;
+<<<<<<< HEAD
 			case "2":  new BoardUI(vo); break;
 //			case "3":  break;
 //			case "3":  break;
+=======
+//			case "2":  break;
+//			case "3":  reak;
+			case "4": new TodoUI(vo); 
+				break;
+>>>>>>> main
 			
 
 			case "0":

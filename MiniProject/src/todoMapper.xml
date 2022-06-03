@@ -3,38 +3,39 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- namespace : interface의 full name parameterType : 파라미터로 전달되는 객체의 full 
-	name insert, update, delete => resultType을 지정하지 않아야 한다. -->
+<mapper namespace="net.scit.dao.TodoMapper">
 
-<mapper namespace="net.scit.dao.TodoMapper">	<!-- 자바의 인터페이스 -->
-	<select id="listByPerson" parameterType="map" resultType="Todo">
-		SELECT *
+	<sql id="selectBy">
+		SELECT t_num, t_content, usrid, teamnum, t_state, TO_CHAR(t_regdate, 'YY/MM/DD HH:MM') as t_regdate
 		FROM todo
-		WHERE usr = #{usr}
-		AND
-		<choose>
-			<when test="option == 'writer'">writer</when>
-			<when test="option == 'title'">title</when>
-			<when test="option == 'text'">text</when>
-		</choose>
+	</sql>
+
+	<select id="listByPerson" resultType="Todo">
+		<include refid="selectBy"></include>
+		WHERE usrid = #{usrid}
 	</select>
 
-	<select id="listByTeam" parameterType="map" resultType="Todo">
-		SELECT *
-		FROM todo
-		WHERE
+	<select id="listByTeam" parameterType="string" resultType="Todo">
+		<include refid="selectBy"></include>
+		WHERE teamnum = #{teamnum}
 	</select>
-
-	<select id="searchTodo" parameterType="map" resultType="Todo">
-		SELECT *
-		FROM todo
-		WHERE usr = #{usr}
-		AND t_content LIKE %#{searchWord}% </select>
+	
+	<select id="listByPersonSearch" parameterType="map" resultType="Todo">
+		<include refid="selectBy"></include>
+		WHERE usrid = #{usrid}
+		AND t_content LIKE '%'||#{searchWord}||'%'
+	</select>
+	
+	<select id="listByTeamSearch" parameterType="map" resultType="Todo">
+		<include refid="selectBy"></include>
+		WHERE teamnum = #{teamnum}
+		AND t_content LIKE '%'||#{searchWord}||'%'
+	</select>
 
 	<insert id="insertTodo" parameterType="Todo">
 		INSERT INTO todo
-		VALUES(t_num_seq.NEXTVAL, #{usrid}, #{teamnum}, #{t_state},
-		#{t_priority}, sysdate)
+		VALUES(t_num_seq.NEXTVAL,#{t_content}, #{usrid}, #{teamnum}, #{t_state},
+		0, sysdate)
 	</insert>
 
 	<update id="updateTodo" parameterType="Todo">

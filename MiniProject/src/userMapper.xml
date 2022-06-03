@@ -13,41 +13,61 @@
 		USR
 		where usrid = #{usrid}
 	</select>
-	
+
 	<select id="findByTeamnum" resultType="User" parameterType="int">
 		SELECT count(*)
 		FROM
 		USR
 		where teamnum = #{teamnum}
 	</select>
-	
-	<insert id="joinBoard" parameterType = "User">
-	INSERT INTO USR
-	VALUES 
-	( #{usrid},	#{pw},	
-	#{usrname}, #{teamnum})
+
+	<insert id="joinBoard" parameterType="User">
+		INSERT INTO USR
+		VALUES
+		( #{usrid}, #{pw},
+		#{usrname}, #{teamnum})
 	</insert>
+<<<<<<< HEAD
 	
 	<select id="Logins" resultType="User" parameterType="User">
+=======
+
+	<select id="Logins" resultType="User" parameterType="String">
+>>>>>>> main
 		SELECT *
 		FROM
 		USR
 		where usrid = #{usrid}
 	</select>
+<<<<<<< HEAD
 	
+=======
+
+	<!-- 팀멤버 조회 -->
+>>>>>>> main
 	<select id="userReply" resultType="User" parameterType="User">
 		SELECT *
 		FROM
 		USR
 		where teamnum = #{teamnum}
 	</select>
+<<<<<<< HEAD
 	
 	<select id="allReply" resultType="User" parameterType="User">
+=======
+
+	<select id="allReply" resultType="User" parameterType="String">
+>>>>>>> main
 		SELECT *
 		FROM
 		USR
 	</select>
-	
 
-	
+	<select id="findByName" parameterType="string" resultType="User">
+		SELECT *
+		FROM USR
+		WHERE usrname = #{usrname}
+	</select>
+
+
 </mapper>

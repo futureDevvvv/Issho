@@ -30,6 +30,9 @@
 		<mapper resource="userMapper.xml" />
 		<mapper resource="todoMapper.xml" />
 		<mapper resource="scheduleMapper.xml" />
+<<<<<<< HEAD
 		<mapper resource="BoardMapper.xml" />
+=======
+>>>>>>> main
 	</mappers>
 </configuration>
