@@ -8,5 +8,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="C:/[Setup Files]/mybatis-3.5.9.jar"/>
 	<classpathentry kind="lib" path="C:/[Setup Files]/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="D:/user/Desktop/MemoCalendar_1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

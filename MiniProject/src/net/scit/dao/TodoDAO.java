@@ -134,4 +134,15 @@ public class TodoDAO {
 
 		return result;
 	}
+
+	public TodoVO findByTnum(String t_num) {
+		SqlSession session = null;
+		session = factory.openSession();
+
+		TodoMapper mapper = session.getMapper(TodoMapper.class);
+
+		TodoVO todo = mapper.findByTnum(t_num);
+		
+		return todo;
+	}
 }

@@ -17,8 +17,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 import net.scit.dao.TodoDAO;
 import net.scit.dao.UserDAO;
@@ -29,6 +31,7 @@ public class TodoUI extends JFrame {
 
 	TodoDAO todoDao = new TodoDAO();
 	UserDAO userDao = new UserDAO();
+	Vector<String> row1 = new Vector<String>();
 
 	/**
 	 * serialVersion
@@ -72,7 +75,7 @@ public class TodoUI extends JFrame {
 		title.setFont(forTitle);
 		title.setBounds(20, 10, 150, 30);
 		c.add(title);
-		
+
 		JLabel info = new JLabel(teamname + " " + name);
 		info.setBounds(130, 10, 150, 30);
 		c.add(info);
@@ -101,17 +104,6 @@ public class TodoUI extends JFrame {
 		c.add(rd1);
 		c.add(rd2);
 
-		// 체크박스 생성
-		/*
-		 * JCheckBox chk1 = new JCheckBox("진행전", true); JCheckBox chk2 = new
-		 * JCheckBox("진행중", true); JCheckBox chk3 = new JCheckBox("완료", true);
-		 * 
-		 * chk1.setBounds(100, 50, 70, 30); chk2.setBounds(200, 50, 70, 30);
-		 * chk3.setBounds(300, 50, 100, 30);
-		 * 
-		 * c.add(chk1); c.add(chk2); c.add(chk3);
-		 */
-
 		// 할 일 검색
 		JLabel lb3 = new JLabel("검색어");
 		lb3.setBounds(20, 90, 100, 30);
@@ -128,22 +120,39 @@ public class TodoUI extends JFrame {
 		c.add(btn1);
 
 		// textArea / 진행전
-		JTextArea jtx1 = new JTextArea();
 
+		Font fortextArea = new Font("굴림", Font.BOLD, 15);
+
+		JLabel before = new JLabel("진행전");
+		before.setFont(fortextArea);
+		before.setBounds(100, 140, 200, 30);
+		c.add(before);
+
+		JTextArea jtx1 = new JTextArea();
 		JScrollPane jsp1 = new JScrollPane(jtx1);
-		jsp1.setBounds(20, 150, 200, 300);
+		jsp1.setBounds(20, 170, 200, 270);
 		c.add(jsp1);
 
 		// textArea / 진행중
+		JLabel proceed = new JLabel("진행중");
+		proceed.setFont(fortextArea);
+		proceed.setBounds(300, 140, 200, 30);
+		c.add(proceed);
+
 		JTextArea jtx2 = new JTextArea();
 		JScrollPane jsp2 = new JScrollPane(jtx2);
-		jsp2.setBounds(230, 150, 200, 300);
+		jsp2.setBounds(230, 170, 200, 270);
 		c.add(jsp2);
 
 		// textArea / 진행완료
+		JLabel finish = new JLabel("완료");
+		finish.setFont(fortextArea);
+		finish.setBounds(520, 140, 200, 30);
+		c.add(finish);
+
 		JTextArea jtx3 = new JTextArea();
 		JScrollPane jsp3 = new JScrollPane(jtx3);
-		jsp3.setBounds(440, 150, 200, 300);
+		jsp3.setBounds(440, 170, 200, 270);
 		c.add(jsp3);
 
 		// 버튼 입력 이벤트 : 조회 조건 설정 및 출력
@@ -160,8 +169,9 @@ public class TodoUI extends JFrame {
 						for (int i = 0; i < list.size(); i++) {
 
 							if (list.get(i).getT_state() == 0) {
-								jtx1.append(list.get(i).getT_content() + "\n" + userDao.findById(list.get(i).getUsrid())
-										+ "\n" + list.get(i).getT_regdate() + "\n");
+								jtx1.append(list.get(i).getT_num() + "\n" + list.get(i).getT_content() + "\n"
+										+ userDao.findById(list.get(i).getUsrid()) + "\n" + list.get(i).getT_regdate()
+										+ "\n");
 								jtx1.append("------------------------------------\n");
 							} else if (list.get(i).getT_state() == 1) {
 								jtx2.append(list.get(i).getT_content() + "\n" + userDao.findById(list.get(i).getUsrid())
@@ -186,9 +196,9 @@ public class TodoUI extends JFrame {
 						for (int i = 0; i < list.size(); i++) {
 
 							if (list.get(i).getT_state() == 0) {
-								jtx1.append(list.get(i).getT_content() + "\n" + userDao.findById(list.get(i).getUsrid())
+								row1.add(list.get(i).getT_content() + "\n" + userDao.findById(list.get(i).getUsrid())
 										+ "\n" + list.get(i).getT_regdate() + "\n");
-								jtx1.append("------------------------------------\n");
+								// jtx1.append("------------------------------------\n");
 							} else if (list.get(i).getT_state() == 1) {
 								jtx2.append(list.get(i).getT_content() + "\n" + userDao.findById(list.get(i).getUsrid())
 										+ "\n" + list.get(i).getT_regdate() + "\n");
@@ -259,18 +269,36 @@ public class TodoUI extends JFrame {
 			}
 		});
 
+		// 업무 번호 호출
+		JLabel lb7 = new JLabel("업무 번호");
+		lb7.setBounds(20, 470, 100, 30);
+		c.add(lb7);
+
+		JTextArea jtx4 = new JTextArea();
+		JScrollPane jsp4 = new JScrollPane(jtx4);
+		jsp4.setBounds(100, 470, 100, 30);
+		c.add(jsp4);
+
+		JButton btn5 = new JButton("정보 로드");
+		btn5.setBounds(400, 470, 100, 30);
+		c.add(btn5);
+
+		JButton btn6 = new JButton("초기화");
+		btn6.setBounds(530, 470, 100, 30);
+		c.add(btn6);
+
 		// 삽입 : 할 일, 담당자, 현재 상태
 		// 할 일 입력 테스트
 		JLabel lb4 = new JLabel("할 일");
-		lb4.setBounds(20, 470, 100, 30);
+		lb4.setBounds(20, 520, 100, 30);
 		c.add(lb4);
 
 		JTextField tf2 = new JTextField();
-		tf2.setBounds(100, 470, 530, 30);
+		tf2.setBounds(100, 520, 530, 30);
 		c.add(tf2);
 
 		JLabel lb5 = new JLabel("담당자");
-		lb5.setBounds(20, 510, 100, 30);
+		lb5.setBounds(20, 570, 100, 30);
 		c.add(lb5);
 
 		for (int i = 0; i < memberList.size(); i++) {
@@ -281,7 +309,7 @@ public class TodoUI extends JFrame {
 
 		// JList<String> memberNameList = new JList<String>(memVector);
 		// JScrollPane jsp4 = new JScrollPane(memCombo);
-		memCombo.setBounds(100, 510, 100, 30);
+		memCombo.setBounds(100, 570, 100, 30);
 		c.add(memCombo);
 
 		JLabel lb6 = new JLabel("상태");
@@ -310,7 +338,7 @@ public class TodoUI extends JFrame {
 		c.add(rd5);
 
 		JButton btn2 = new JButton("입력");
-		btn2.setBounds(170, 700, 100, 30);
+		btn2.setBounds(150, 700, 100, 30);
 		c.add(btn2);
 
 		JButton btn3 = new JButton("수정");
@@ -318,7 +346,7 @@ public class TodoUI extends JFrame {
 		c.add(btn3);
 
 		JButton btn4 = new JButton("삭제");
-		btn4.setBounds(430, 700, 100, 30);
+		btn4.setBounds(450, 700, 100, 30);
 		c.add(btn4);
 
 		btn2.addActionListener(new ActionListener() {
@@ -359,9 +387,102 @@ public class TodoUI extends JFrame {
 
 		});
 
+		// 정보 로드
+		btn5.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				String t_num = jtx4.getText();
+
+				System.out.println(t_num);
+
+				TodoVO todo = todoDao.findByTnum(t_num);
+
+				String content = todo.getT_content();
+				tf2.setText(content);
+
+				int selectedState = todo.getT_state();
+				if (selectedState == 0) {
+					rd3.setSelected(true);
+				} else if (selectedState == 1) {
+					rd4.setSelected(true);
+				} else {
+					rd5.setSelected(true);
+				}
+
+			}
+		});
+
 		// 수정
+		btn3.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				String content = tf2.getText();
+
+				String selectedMem = memCombo.getSelectedItem().toString();
+				UserVO user = userDao.findByName(selectedMem);
+				String memId = user.getUsrid();
+
+				int state;
+
+				if (rd3.isSelected()) {
+					state = 0;
+				} else if (rd4.isSelected()) {
+					state = 1;
+				} else {
+					state = 2;
+				}
+
+				//todo.setT_content(content);
+				//todo.setT_state(state);
+				//todo.setUsrid(memId);
+
+				//int updateResult = todoDao.updateTodo(todo);
+
+				/*
+				if (updateResult == 1) {
+					JOptionPane.showMessageDialog(null, "수정이 완료되었습니다.");
+
+				} else {
+					JOptionPane.showMessageDialog(null, "오류가 발생했습니다.", "에러", JOptionPane.ERROR_MESSAGE);
+				}
+				*/
+			}
+		});
 
 		// 삭제
+		btn4.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String t_num = jtx4.getText();
+
+				TodoVO todo = todoDao.findByTnum(t_num);
+
+				if (todo == null) {
+
+					JOptionPane.showMessageDialog(null, "해당 할 일이 존재하지 않습니다.", "에러", JOptionPane.ERROR_MESSAGE);
+
+					return;
+				}
+
+				int answer = JOptionPane.showConfirmDialog(null, "정말 삭제하시겠습니까?", "일정 삭제", JOptionPane.YES_NO_OPTION);
+
+				if (answer == JOptionPane.YES_OPTION) {
+					int deleteResult = todoDao.deleteTodo(t_num);
+
+					if (deleteResult == 1) {
+						JOptionPane.showMessageDialog(null, "삭제가 완료되었습니다.");
+
+					} else {
+						JOptionPane.showMessageDialog(null, "오류가 발생했습니다.", "에러", JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			}
+		});
 
 		// 윈도우 창 크기 설정
 		setSize(700, 900);

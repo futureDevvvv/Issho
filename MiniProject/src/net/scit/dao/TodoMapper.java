@@ -39,4 +39,7 @@ public interface TodoMapper {
 
 	// 삭제
 	public int deleteTodo(String t_num);
+
+	//글 번호로 객체 검색
+	public TodoVO findByTnum(String t_num);
 }
