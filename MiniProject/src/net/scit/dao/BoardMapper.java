@@ -10,13 +10,13 @@ public interface BoardMapper {
 	public List<BoardVO> listBoard(String teamnum);
 	
 	public List<BoardVO> adminlistBoard();
-	
+	//게시글 조회
+	public BoardVO readBoard(String boardunm); //
 	
 	
 	//게시글 등록
 	public int weiterBoard(BoardVO board); //
-	//게시글 조회
-	public BoardVO readBoard(int boardunm); //
+
 	//게시글 검색
 	public List<BoardVO>  searchBoard(Map<String, Object> map);
 	//게시글 삭제

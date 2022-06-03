@@ -24,6 +24,7 @@ public class BoardDAO {
 			 System.out.println();
 			 return 0;
 		 }
+		 session.commit();
 		System.out.println("게시판 개수는 " + mapper.getCount()+ " 개 입니다. ");
 		return 1;
 		}
@@ -34,6 +35,7 @@ public class BoardDAO {
 		
 		BoardMapper mapper = session.getMapper(BoardMapper.class);
 		List<BoardVO> list = mapper.listBoard(teamnum);
+		session.commit();
 		return list;
 	}
 	
@@ -43,13 +45,29 @@ public class BoardDAO {
 		
 		BoardMapper mapper = session.getMapper(BoardMapper.class);
 		List<BoardVO> list = mapper.adminlistBoard();
+		session.commit();
 		return list;
+	}
+	
+	public BoardVO readBoard(String b_num) {
+		SqlSession session = null;
+		session = factory.openSession();
+		
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		BoardVO result = mapper.readBoard(b_num);
+		session.commit();
+		return result;
 	}
 
 
 	public int weiterBoard(BoardVO board) {
+		SqlSession session = null;
+		session = factory.openSession();
 		
-		return 0;
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		int result = mapper.weiterBoard(board);
+		session.commit();
+		return result;
 	}
 	
 }

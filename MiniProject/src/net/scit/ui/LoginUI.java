@@ -35,7 +35,6 @@ public class LoginUI {
 			}
 			if (dao.findById(usrid) == null) {
 				System.out.println("아이디가 존재하지 않습니다.");
-				System.out.println("dkdk");
 				return;
 			}
 			if(Integer.parseInt(vo.getTeamnum()) != 0) {//팀번호가 0이 아니면 
@@ -121,16 +120,9 @@ public class LoginUI {
 
 			switch (choice) {
 			case "1": userReply(vo); break;
-<<<<<<< HEAD
 			case "2":  new BoardUI(vo); break;
-//			case "3":  break;
-//			case "3":  break;
-=======
-//			case "2":  break;
-//			case "3":  reak;
 			case "4": new TodoUI(vo); 
 				break;
->>>>>>> main
 			
 
 			case "0":

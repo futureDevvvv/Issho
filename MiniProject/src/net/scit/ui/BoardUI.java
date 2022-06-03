@@ -13,7 +13,7 @@ import net.scit.vo.UserVO;
 
 
 public class BoardUI {
-	Scanner keyin = new Scanner(System.in);
+	Scanner sc = new Scanner(System.in);
 	Map<String, Object> map= new HashMap<>();
 	UserDAO dao = new UserDAO();
 	BoardDAO bdao = new BoardDAO();
@@ -22,12 +22,12 @@ public class BoardUI {
 		String choice;
 		while(true) {
 			mainMenu();
-			choice = keyin.nextLine();
+			choice = sc.nextLine();
 			
 			switch (choice) {
 			case "1": input(vo); break;
 			case "2": list(vo); break;
-//			case "3": read(vo); break;
+			case "3": read(vo); break;
 //			case "4": delete(vo); break;
 //			case "5": update(vo); break;
 //			case "6": search(vo); break;
@@ -52,14 +52,14 @@ public class BoardUI {
 		String teamnum;
 		
 		System.out.print(">제목을 입력하세요 : ");
-		b_title = keyin.nextLine();
+		b_title = sc.nextLine();
 		if(b_title.trim().equals("")) {
 			System.out.println("문자로 입력해주세요");
 			return;
 		}
 		
 		System.out.println(">내용을 입력하세요 : ");
-		b_content = keyin.nextLine();
+		b_content = sc.nextLine();
 		if(b_content.trim().equals("")) {
 			System.out.println("문자로 입력해주세요");
 			return;
@@ -68,9 +68,9 @@ public class BoardUI {
 		teamnum = vo.getTeamnum();
 		BoardVO board = new BoardVO(b_title, b_content,usrid, teamnum);
 		
-		int result = bdao.weiterBoard(board);
+		bdao.weiterBoard(board);
 		map.put(board.getB_content(), board);
-		System.out.printf("** %d 명 회원가입이 완료되었습니다.",result);
+		System.out.println("** 게시글작성이 완료되었습니다.");
 	}
 	
 	private void list(UserVO vo) {
@@ -94,22 +94,18 @@ public class BoardUI {
 		
 	}
 
-//	private void read(UserVO vo) {
-//		int boardnum;
-//		list();
-//		System.out.print(">읽을 번호를 입력하세요 : ");
-//		boardnum = keyin.nextInt();
-//		keyin.nextLine();
-//		BoardVO result = dao.readBoard(boardnum);
-//		
-//		System.out.println(result.getText());
-//		
-//		new ReplyUI(result.getBoardnum());
-//		
-//		
-//		
-//		
-//	}
+	private void read(UserVO vo) {
+		String b_num;
+		list(vo);
+		System.out.print(">읽을 번호를 입력하세요 : ");
+		b_num = sc.nextLine();
+		BoardVO result = bdao.readBoard(b_num);
+		
+		System.out.println(result.getB_content());
+		
+//		new ReplyUI(result.getBoardnum()); //덧글추가할시
+
+	}
 //
 //	private void delete(UserVO vo) {
 //		String answer;

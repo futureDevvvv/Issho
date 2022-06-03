@@ -11,8 +11,8 @@ import net.scit.vo.UserVO;
 public class UserDAO {
 //회원가입, 로그인
 	SqlSessionFactory factory = MybatisConfig.getSqlSessionFactory();
-
-	public UserVO findById(String usrid) { // 중복 체크 메소드
+	// 중복 아이디 체크 메소드
+	public UserVO findById(String usrid) { 
 		SqlSession session = null;
 		session = factory.openSession();
 
@@ -22,7 +22,7 @@ public class UserDAO {
 		session.commit();
 		return vo;
 	}
-
+	//팀번호 찾는 메소드
 	public int findByTeamnum(String teamnum) {
 		SqlSession session = null;
 		session = factory.openSession();
@@ -33,7 +33,7 @@ public class UserDAO {
 		session.commit();
 		return result;
 	}
-
+	
 	public int joinBoard(UserVO uservo) { // 회원가입 메소드
 		SqlSession session = null;
 		session = factory.openSession();
@@ -44,7 +44,7 @@ public class UserDAO {
 
 		return result;
 	}
-
+	//로그인세션
 	public UserVO Logins(UserVO vo) {
 		SqlSession session = null;
 		session = factory.openSession();
@@ -66,7 +66,7 @@ public class UserDAO {
 		return list;
 
 	}
-
+	//관리자 기준 정보보기
 	public List<UserVO> allReply(UserVO vo) {
 		SqlSession session = null;
 		session = factory.openSession();
@@ -89,10 +89,10 @@ public class UserDAO {
 		
 	}
 
-<<<<<<< HEAD
 
 
 
+
 	
 
 	
@@ -100,8 +100,5 @@ public class UserDAO {
 	
 	
 	
-	
-	
-=======
->>>>>>> main
+
 }
