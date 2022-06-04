@@ -117,7 +117,7 @@ public class LoginUI {
 			switch (choice) {
 			case "1": userReply(vo); break;
 //			case "2":  break;
-//			case "3":  reak;
+			case "3": new memberListUI(vo);
 			case "4": new TodoUI(vo); 
 				break;
 			
