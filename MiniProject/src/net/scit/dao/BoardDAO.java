@@ -96,14 +96,28 @@ public class BoardDAO {
 		session.commit();
 	}
 
-	public void searchBoard(Map<String, Object> map) {
+	public List<BoardVO> searchBoard(Map<String, Object> map) {
 		SqlSession session = null;
 		session = factory.openSession();
-		
+
 		BoardMapper mapper = session.getMapper(BoardMapper.class);
-		mapper.searchBoard(map);
-		session.commit();
+
+		List<BoardVO> list = mapper.searchBoard(map);
 		
+		return list;
+		
+	}
+
+	public int updateBoard(BoardVO board) {
+		SqlSession session = null;
+		session = factory.openSession();
+
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+
+		int result = mapper.updateBoard(board);
+		session.commit();
+
+		return result;
 	}
 	
 }

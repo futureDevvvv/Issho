@@ -32,27 +32,37 @@
 		from Board 
 		where b_num = #{b_num}
 		</select>
+		
 		<delete id="deletBoard" parameterType="String">
 		DELETE
 		Board
 		where b_num = #{b_num}
 		</delete>
+		
 		<select id="beBoard" resultType="Board" parameterType="String">
 		select *
 		from Board 
 		where b_num = #{b_num}
 		</select>
-		<select id="searchBoard" resultType="Board" parameterType="String">
+		
+		<select id="searchBoard" parameterType="map" resultType="Board">
 		SELECT *
 		FROM board
 		WHERE
 		<choose>
-			<when test="searchItem == 'usrid'">writer</when>
-			<when test="searchItem == 'b_title'">title</when>
-			<when test="searchItem == 'b_content'">text</when>
+			<when test="searchItem == 'usrid'">usrid</when>
+			<when test="searchItem == 'b_title'">b_title</when>
+			<when test="searchItem == 'b_content'">b_content</when>
 		</choose>
-		LIKE '%' || #{searchWord} || '%'
+		LIKE '%'||#{searchWord}||'%'
 	</select>
+	
+	<update id="updateBoard" parameterType="Board">
+		UPDATE board
+		SET
+		b_title=#{b_title}, b_content=#{b_content}
+		WHERE b_num = #{b_num}
+	</update>
 	
 		
 		

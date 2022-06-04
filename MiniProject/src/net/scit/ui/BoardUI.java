@@ -31,8 +31,8 @@ public class BoardUI {
 				case "2": list(vo); break;
 				case "3": read(vo); break;
 				case "4": delete(vo); break;
-//				case "5": update(vo); break;
-				case "6": search(vo); break;
+				case "5": update(vo); break;
+//				case "6": search(); break;
 				case "7": count(vo); break;
 				case "0": 
 					return;
@@ -50,8 +50,8 @@ public class BoardUI {
 				case "1": list(vo); break;
 				case "2": read(vo); break;
 				case "3": delete(vo); break;
-//				case "4": update(vo); break;
-				case "5": search(vo); break;
+				case "4": update(vo); break;
+//				case "5": search(); break;
 				case "6": count(vo); break;
 				case "0": 
 					return;
@@ -126,10 +126,25 @@ public class BoardUI {
 		System.out.print(">읽을 번호를 입력하세요 : ");
 		b_num = sc.nextLine();
 		BoardVO result = bdao.readBoard(b_num);
+		if(b_num.equals("")) { //  
+			System.out.println("잘못입력하셧습니다.");
+			return;
+		}
+		if(result.getUsrid().equals(vo.getUsrid())) { //  
+			System.out.println("잘못입력하셧습니다.");
+			return;
+		}
+		if(result.getB_content() == null) { //  
+			System.out.println("잘못입력하셧습니다.");
+			return;
+		}
 		
-		System.out.println("==============내      용==============");
-		System.out.println(result.getB_content());
-		
+		if(vo.getTeamnum().equals(result)) {
+			System.out.println("==============내      용==============");
+			System.out.println(result.getB_content());
+		}else {
+			System.out.println("정확한 값을 입력해주세요.");
+		}
 //		new ReplyUI(result.getBoardnum()); //덧글추가할시
 
 	}
@@ -180,54 +195,103 @@ public class BoardUI {
 		
 	}
 
-//	private void update(UserVO vo) {
-//		int boardnum;
-//		String title;
-//		String text;
-//		list();
-//		System.out.print(">수정할 번호를 입력하세요 : ");
-//		boardnum = keyin.nextInt();
-//		keyin.nextLine();
-//		if(boardnum == 0) {
-//			System.out.println("** 해당 번호가 없습니다.");
-//			return;
-//		}
-//		System.out.println("====수  정====");
-//		System.out.print("> 제목은 무엇인가요 : ");
-//		title = keyin.nextLine();
-//		if(title.trim().equals("")) {
-//			System.out.println("문자로 입력해주세요");
-//			return;
-//		}
-//		System.out.println("> 내용을 입력하세요 : ");
-//		text = keyin.nextLine();
-//		if(text.trim().equals("")) {
-//			System.out.println("문자로 입력해주세요");
-//			return;
-//		}
-//		BoardVO board = dao.readBoard(boardnum);
-//		board.setText(text);
-//		board.setTitle(title);
-//		
-//		int result = dao.updateBoard(board);
-//		System.out.printf("** %d 명 수정이 완료되었습니다.",result);
-//		
-//	}
-//
-	private void search(UserVO vo) {
+	private void update(UserVO vo) {
+		String b_num;
+		String b_title;
+		String b_content;
+		list(vo);
+		System.out.print(">수정할 번호를 입력하세요 : ");
+		b_num = sc.nextLine();
+		if(vo.equals(b_num)) {
+			System.out.println("** 해당 번호가 없습니다.");
+			return;
+		}
+		System.out.println("====수  정====");
+		System.out.print("> 제목은 무엇인가요 : ");
+		b_title = sc.nextLine();
+		if(b_title.trim().equals("")) {
+			System.out.println("문자로 입력해주세요");
+			return;
+		}
+		System.out.println("> 내용을 입력하세요 : ");
+		b_content = sc.nextLine();
+		if(b_content.trim().equals("")) {
+			System.out.println("문자로 입력해주세요");
+			return;
+		}
+		BoardVO board = bdao.readBoard(b_num);
+		board.setB_title(b_title);
+		board.setB_content(b_content);
 		
-		List<BoardVO> list = bdao.listBoard(vo.getTeamnum());
-		Iterator<BoardVO> iter = list.iterator();
-		BoardVO board = new BoardVO();
+		int result = bdao.updateBoard(board);
+		System.out.printf("** %d 명 수정이 완료되었습니다.",result);
 		
-		System.out.print("> 내용중 찾을 단어를 입력하세요 : ");
-		String a = sc.nextLine();
-		map.put(a, board);
-		while(iter.hasNext())
-			System.out.println(iter.next());
-		bdao.searchBoard(map);
-		System.out.println(map.size());
 	}
+////
+////	private void search(UserVO vo) {
+////		
+////		List<BoardVO> list = bdao.listBoard(vo.getTeamnum());
+////		Iterator<BoardVO> iter = list.iterator();
+////		BoardVO board = new BoardVO();
+////		
+////		System.out.print("> 내용중 찾을 단어를 입력하세요 : ");
+////		String a = sc.nextLine();
+////		map.put(a, board);
+////		while(iter.hasNext())
+////			System.out.println(iter.next());
+////		bdao.searchBoard(map);
+////		System.out.println(map.size());
+////	}
+//	
+//	private void search() {
+//		String searchWord = null, searchItem = null, choice;
+//
+//		System.out.println("	1) id 검색    2) 제목 검색   3) 내용 검색   0) 돌아가기");
+//		choice = sc.nextLine();
+//
+//		switch (choice) {
+//		case "1":
+//			searchItem = "usrid";
+//			break;
+//
+//		case "2":
+//			searchItem = "b_title";
+//			break;
+//
+//		case "3":
+//			searchItem = "b_content";
+//			break;
+//
+//		case "4":
+//			break;
+//
+//		default:
+//			System.out.println("** 잘못 입력하셧습니다.");
+//			return;
+//		}
+//
+//		System.out.print("** 검색어를 입력해주세요.");
+//		searchWord = sc.nextLine();
+//
+//		Map<String, Object> map = new HashMap<>();
+//
+//		map.put("searchItem", searchItem);
+//		map.put("searchWord", searchWord);
+//
+//		List<BoardVO> list = bdao.searchBoard(map);
+//		
+//		System.out.println("<< 검색 결과 >> ");
+//
+//
+//		if (list == null) {
+//			System.out.println("파일이 존재하지 않습니다.");
+//			return;
+//		}
+//
+//		list.forEach(x -> System.out.println(x));
+//	}
+	
+	
 
 	private void mainMenu() {
 		System.out.println();
