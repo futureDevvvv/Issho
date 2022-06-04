@@ -14,6 +14,8 @@ public interface BoardMapper {
 	//게시글 조회
 	public BoardVO readBoard(String boardunm); //
 	
+	//조회수 수정
+	public int incrementHitcount(String b_num);
 	
 	//게시글 등록
 	public int weiterBoard(BoardVO board); //

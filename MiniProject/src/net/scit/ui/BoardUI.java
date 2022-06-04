@@ -17,6 +17,8 @@ public class BoardUI {
 	Map<String, Object> map= new HashMap<>();
 	UserDAO dao = new UserDAO();
 	BoardDAO bdao = new BoardDAO();
+	NoticeUI nui = new NoticeUI();
+	ReplyUI reply;
 	
 	public BoardUI(UserVO vo) {
 		
@@ -32,7 +34,7 @@ public class BoardUI {
 				case "3": read(vo); break;
 				case "4": delete(vo); break;
 				case "5": update(vo); break;
-//				case "6": search(); break;
+				case "6": search(); break;
 				case "7": count(vo); break;
 				case "0": 
 					return;
@@ -51,7 +53,7 @@ public class BoardUI {
 				case "2": read(vo); break;
 				case "3": delete(vo); break;
 				case "4": update(vo); break;
-//				case "5": search(); break;
+				case "5": search(); break;
 				case "6": count(vo); break;
 				case "0": 
 					return;
@@ -122,26 +124,29 @@ public class BoardUI {
 
 	private void read(UserVO vo) {
 		String b_num;
+		
+		nui.meme();
 		list(vo);
+
 		System.out.print(">읽을 번호를 입력하세요 : ");
 		b_num = sc.nextLine();
+		
 		BoardVO result = bdao.readBoard(b_num);
 		if(b_num.equals("")) { //  
 			System.out.println("잘못입력하셧습니다.");
 			return;
 		}
-		if(result.getUsrid().equals(vo.getUsrid())) { //  
-			System.out.println("잘못입력하셧습니다.");
-			return;
-		}
-		if(result.getB_content() == null) { //  
-			System.out.println("잘못입력하셧습니다.");
-			return;
-		}
-		
-		if(vo.getTeamnum().equals(result)) {
+
+		if(vo.getTeamnum().equals(result.getTeamnum())) {
 			System.out.println("==============내      용==============");
 			System.out.println(result.getB_content());
+			new ReplyUI(vo,b_num).readBoard(vo, b_num);
+
+		}else if(vo.getTeamnum().equals("0")){
+			System.out.println("==============내      용==============");
+			System.out.println(result.getB_content());
+			new ReplyUI(vo,b_num).readBoard(vo, b_num);
+			
 		}else {
 			System.out.println("정확한 값을 입력해주세요.");
 		}
@@ -223,73 +228,54 @@ public class BoardUI {
 		board.setB_title(b_title);
 		board.setB_content(b_content);
 		
-		int result = bdao.updateBoard(board);
-		System.out.printf("** %d 명 수정이 완료되었습니다.",result);
-		
+		bdao.updateBoard(board);
 	}
-////
-////	private void search(UserVO vo) {
-////		
-////		List<BoardVO> list = bdao.listBoard(vo.getTeamnum());
-////		Iterator<BoardVO> iter = list.iterator();
-////		BoardVO board = new BoardVO();
-////		
-////		System.out.print("> 내용중 찾을 단어를 입력하세요 : ");
-////		String a = sc.nextLine();
-////		map.put(a, board);
-////		while(iter.hasNext())
-////			System.out.println(iter.next());
-////		bdao.searchBoard(map);
-////		System.out.println(map.size());
-////	}
-//	
-//	private void search() {
-//		String searchWord = null, searchItem = null, choice;
-//
-//		System.out.println("	1) id 검색    2) 제목 검색   3) 내용 검색   0) 돌아가기");
-//		choice = sc.nextLine();
-//
-//		switch (choice) {
-//		case "1":
-//			searchItem = "usrid";
-//			break;
-//
-//		case "2":
-//			searchItem = "b_title";
-//			break;
-//
-//		case "3":
-//			searchItem = "b_content";
-//			break;
-//
-//		case "4":
-//			break;
-//
-//		default:
-//			System.out.println("** 잘못 입력하셧습니다.");
-//			return;
-//		}
-//
-//		System.out.print("** 검색어를 입력해주세요.");
-//		searchWord = sc.nextLine();
-//
-//		Map<String, Object> map = new HashMap<>();
-//
-//		map.put("searchItem", searchItem);
-//		map.put("searchWord", searchWord);
-//
-//		List<BoardVO> list = bdao.searchBoard(map);
-//		
-//		System.out.println("<< 검색 결과 >> ");
-//
-//
-//		if (list == null) {
-//			System.out.println("파일이 존재하지 않습니다.");
-//			return;
-//		}
-//
-//		list.forEach(x -> System.out.println(x));
-//	}
+	private void search() {
+		String searchWord = null, searchItem = null, choice;
+
+		System.out.println("	1) id 검색    2) 제목 검색   3) 내용 검색   0) 돌아가기");
+		choice = sc.nextLine();
+
+		switch (choice) {
+		case "1":
+			searchItem = "usrid";
+			break;
+
+		case "2":
+			searchItem = "b_title";
+			break;
+
+		case "3":
+			searchItem = "b_content";
+			break;
+
+		case "4":
+			break;
+
+		default:
+			System.out.println("** 잘못 입력하셧습니다.");
+			return;
+		}
+
+		System.out.print("** 검색어를 입력해주세요. : ");
+		searchWord = sc.nextLine();
+
+		Map<String, Object> map = new HashMap<>();
+
+		map.put("searchItem", searchItem);
+		map.put("searchWord", searchWord);
+
+		List<BoardVO> list = bdao.searchBoard(map);
+		
+		System.out.println("<< 검색 결과 >> ");
+		
+
+		if (list == null) {
+			System.out.println("파일이 존재하지 않습니다.");
+			return;
+		}
+		list.forEach(x -> System.out.println(x));
+	}
 	
 	
 

@@ -11,13 +11,15 @@
 	
 	<select id="adminlistBoard" resultType="Board">
 		select *
-		from Board
+		from Board b,usr u
+		where b.usrid = u.usrid
 		</select>
 		
 		<select id="listBoard" resultType="Board" parameterType="String">
 		select *
-		from Board
-		where teamnum = #{teamnum}
+		from Board b,usr u
+		where u.usrid = b.usrid
+		and b.teamnum = #{teamnum}
 		</select>
 		
 		<insert id="weiterBoard" parameterType="Board">
@@ -29,8 +31,9 @@
 		
 		<select id="readBoard" resultType="Board" parameterType="String">
 		select *
-		from Board 
-		where b_num = #{b_num}
+		from Board b,usr u
+		where b.usrid = u.usrid
+		and b_num = #{b_num}
 		</select>
 		
 		<delete id="deletBoard" parameterType="String">
@@ -41,18 +44,20 @@
 		
 		<select id="beBoard" resultType="Board" parameterType="String">
 		select *
-		from Board 
-		where b_num = #{b_num}
+		from Board b,usr u
+		where b.usrid = u.usrid
+		and b_num = #{b_num}
 		</select>
 		
 		<select id="searchBoard" parameterType="map" resultType="Board">
 		SELECT *
-		FROM board
-		WHERE
+		FROM board b, usr u
+		WHERE b.usrid = u.usrid
+		and
 		<choose>
-			<when test="searchItem == 'usrid'">usrid</when>
-			<when test="searchItem == 'b_title'">b_title</when>
-			<when test="searchItem == 'b_content'">b_content</when>
+			<when test="searchItem == 'usrid'">b.usrid</when>
+			<when test="searchItem == 'b_title'">b.b_title</when>
+			<when test="searchItem == 'b_content'">b.b_content</when>
 		</choose>
 		LIKE '%'||#{searchWord}||'%'
 	</select>

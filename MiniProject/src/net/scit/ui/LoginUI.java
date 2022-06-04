@@ -145,8 +145,9 @@ public class LoginUI {
 			switch (choice) {
 			case "1": allReply(vo); break;
 			case "2":  new BoardUI(vo); break;
-//			case "3":  break;
-//			case "3":  break;
+			case "3":  new NoticeUI(vo); break;
+//			case "4":  break;
+//			case "5":  break;
 			
 
 			case "0":

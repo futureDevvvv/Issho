@@ -59,6 +59,8 @@ public class BoardDAO {
 		session.commit();
 		return result;
 	}
+	
+	
 
 
 	public int weiterBoard(BoardVO board) {
@@ -103,7 +105,7 @@ public class BoardDAO {
 		BoardMapper mapper = session.getMapper(BoardMapper.class);
 
 		List<BoardVO> list = mapper.searchBoard(map);
-		
+		session.commit();
 		return list;
 		
 	}
@@ -116,7 +118,6 @@ public class BoardDAO {
 
 		int result = mapper.updateBoard(board);
 		session.commit();
-
 		return result;
 	}
 	
