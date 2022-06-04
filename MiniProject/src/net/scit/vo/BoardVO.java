@@ -77,8 +77,8 @@ public class BoardVO {
 
 	@Override
 	public String toString() {
-		return "BoardVO [b_num=" + b_num + ", b_title=" + b_title + ", b_content=" + b_content + ", usrid=" + usrid
-				+ ", b_regdate=" + b_regdate + ", b_hitcount=" + b_hitcount + ", teamnum=" + teamnum + "]";
+		return "글번호 = " + b_num + " , 제목 =" + b_title +  " , 작성자 = " + usrid
+				 + " , 팀 번호 = " + teamnum + " , 추천수 =" + b_hitcount + " , 작성 날짜 = " + b_regdate;
 	}
 
 }

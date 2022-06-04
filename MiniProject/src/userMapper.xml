@@ -28,12 +28,14 @@
 		#{usrname}, #{teamnum})
 	</insert>
 
-	<select id="Logins" resultType="User" parameterType="String">
+	
+	<select id="Logins" resultType="User" parameterType="User">
 		SELECT *
 		FROM
 		USR
 		where usrid = #{usrid}
 	</select>
+
 
 	<!-- 팀멤버 조회 -->
 	<select id="userReply" resultType="User" parameterType="User">
@@ -42,8 +44,8 @@
 		USR
 		where teamnum = #{teamnum}
 	</select>
-
-	<select id="allReply" resultType="User" parameterType="String">
+	
+	<select id="allReply" resultType="User" parameterType="User">
 		SELECT *
 		FROM
 		USR
