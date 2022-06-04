@@ -160,6 +160,11 @@ public class TodoUI extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				jtx1.setText("");
+				jtx2.setText("");
+				jtx3.setText("");
+				
 				if (rd1.isSelected()) {
 
 					if (tf1.getText().length() == 0 || tf1.getText().equals("")) {
@@ -395,9 +400,13 @@ public class TodoUI extends JFrame {
 
 				String t_num = jtx4.getText();
 
-				System.out.println(t_num);
-
 				TodoVO todo = todoDao.findByTnum(t_num);
+
+				if (todo == null) {
+					JOptionPane.showMessageDialog(null, "해당 할 일이 존재하지 않습니다.", "에러", JOptionPane.ERROR_MESSAGE);
+
+					return;
+				}
 
 				String content = todo.getT_content();
 				tf2.setText(content);
@@ -414,11 +423,26 @@ public class TodoUI extends JFrame {
 			}
 		});
 
+		// 초기화
+		btn6.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				jtx4.setText("");
+				tf2.setText("");
+				rd3.setSelected(true);
+			}
+		});
+
 		// 수정
 		btn3.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+
+				String t_num = jtx4.getText();
+
+				TodoVO todo = todoDao.findByTnum(t_num);
 
 				String content = tf2.getText();
 
@@ -436,20 +460,18 @@ public class TodoUI extends JFrame {
 					state = 2;
 				}
 
-				//todo.setT_content(content);
-				//todo.setT_state(state);
-				//todo.setUsrid(memId);
+				todo.setT_content(content);
+				todo.setT_state(state);
+				todo.setUsrid(memId);
 
-				//int updateResult = todoDao.updateTodo(todo);
+				int updateResult = todoDao.updateTodo(todo);
 
-				/*
 				if (updateResult == 1) {
 					JOptionPane.showMessageDialog(null, "수정이 완료되었습니다.");
 
 				} else {
 					JOptionPane.showMessageDialog(null, "오류가 발생했습니다.", "에러", JOptionPane.ERROR_MESSAGE);
 				}
-				*/
 			}
 		});
 

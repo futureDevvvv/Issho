@@ -101,10 +101,9 @@ class CalendarDataManager { // 6*7배열에 나타낼 달력 값을 구하는 cl
 	}
 }
 
-public class MemoCalendar extends CalendarDataManager { // CalendarDataManager의 GUI + 메모기능 + 시계
+public class ScheduleUI extends CalendarDataManager { // CalendarDataManager의 GUI + 메모기능 + 시계
 	// 창 구성요소와 배치도
 	JFrame mainFrame;
-	ImageIcon icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));
 
 	JPanel calOpPanel;
 	JButton todayBut;
@@ -142,19 +141,19 @@ public class MemoCalendar extends CalendarDataManager { // CalendarDataManager�
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				new MemoCalendar();
+				new ScheduleUI();
 			}
 		});
 	}
 
-	public MemoCalendar() { // 구성요소 순으로 정렬되어 있음. 각 판넬 사이에 빈줄로 구별
+	public ScheduleUI() { // 구성요소 순으로 정렬되어 있음. 각 판넬 사이에 빈줄로 구별
 
 		mainFrame = new JFrame(title);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setSize(700, 400);
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setResizable(false);
-		mainFrame.setIconImage(icon.getImage());
+		//mainFrame.setIconImage(icon.getImage());
 		try {
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");// LookAndFeel Windows 스타일 적용
 			SwingUtilities.updateComponentTreeUI(mainFrame);
