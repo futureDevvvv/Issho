@@ -17,10 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
 
 import net.scit.dao.TodoDAO;
 import net.scit.dao.UserDAO;
@@ -31,7 +29,7 @@ public class TodoUI extends JFrame {
 
 	TodoDAO todoDao = new TodoDAO();
 	UserDAO userDao = new UserDAO();
-	Vector<String> row1 = new Vector<String>();
+	//Vector<String> row1 = new Vector<String>();
 
 	/**
 	 * serialVersion
@@ -76,7 +74,7 @@ public class TodoUI extends JFrame {
 		title.setBounds(20, 10, 150, 30);
 		c.add(title);
 
-		JLabel info = new JLabel(teamname + " " + name);
+		JLabel info = new JLabel(teamname + " " + name + " 님");
 		info.setBounds(130, 10, 150, 30);
 		c.add(info);
 
@@ -201,7 +199,7 @@ public class TodoUI extends JFrame {
 						for (int i = 0; i < list.size(); i++) {
 
 							if (list.get(i).getT_state() == 0) {
-								row1.add(list.get(i).getT_content() + "\n" + userDao.findById(list.get(i).getUsrid())
+								jtx3.append(list.get(i).getT_content() + "\n" + userDao.findById(list.get(i).getUsrid())
 										+ "\n" + list.get(i).getT_regdate() + "\n");
 								// jtx1.append("------------------------------------\n");
 							} else if (list.get(i).getT_state() == 1) {
