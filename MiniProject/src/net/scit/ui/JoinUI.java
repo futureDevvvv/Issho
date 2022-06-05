@@ -6,6 +6,7 @@ import net.scit.dao.UserDAO;
 import net.scit.vo.UserVO;
 
 public class JoinUI {
+
 	// 회원가입ui
 	Scanner sc = new Scanner(System.in);
 	UserDAO dao = new UserDAO();
@@ -81,5 +82,6 @@ public class JoinUI {
 
 		new LoginUI();
 	}
+	
 
 }
