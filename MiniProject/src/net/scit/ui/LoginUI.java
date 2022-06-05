@@ -141,7 +141,12 @@ public class LoginUI {
 			case "4":
 				new SchedulerUI(vo);
 				break;
-
+			case "5" : 
+				new MessengerServer(vo);
+				break;
+			case "6" :
+				new MessengerClient(vo);
+				break;
 			case "0":
 				return;
 			default:
