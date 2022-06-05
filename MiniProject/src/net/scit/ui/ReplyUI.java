@@ -35,6 +35,8 @@ public class ReplyUI {
 		case "3":
 			deleteReply(vo,b_num);
 			break;
+		case "0":
+			new BoardUI(vo);
 		}
 	}
 
@@ -134,6 +136,7 @@ public class ReplyUI {
 		System.out.println("			1) 댓글 작성");
 		System.out.println("			2) 댓글 수정");
 		System.out.println("			3) 댓글 삭제");
+		System.out.println("			0) 돌아 가기");
 		System.out.println("----------------------------------");
 		System.out.println("   	> 선택");
 	}

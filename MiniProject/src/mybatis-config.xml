@@ -14,6 +14,7 @@
 		<typeAlias type="net.scit.vo.BoardVO" alias="Board"/>
 		<typeAlias type="net.scit.vo.NoticeVO" alias="Notice"/>
 		<typeAlias type="net.scit.vo.ReplyVO" alias="Reply"/>
+		<typeAlias type="net.scit.vo.BlikeVO" alias="Blike"/>
 	</typeAliases>
 
 	<environments default="development">
@@ -35,5 +36,6 @@
 		<mapper resource="BoardMapper.xml" />
 		<mapper resource="NoticeMapper.xml" />
 		<mapper resource="ReplyMapper.xml" />
+		<mapper resource="BlikeMapper.xml" />
 	</mappers>
 </configuration>

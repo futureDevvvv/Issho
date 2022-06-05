@@ -11,24 +11,24 @@ public class LoginUI {
 	UserVO vo = new UserVO();
 	Scanner sc = new Scanner(System.in);
 	UserDAO dao = new UserDAO();
-	
-	//로그인ui
+
+	// 로그인ui
 	public LoginUI() {
-		
+
 		String choice;
 		while (true) {
 			Menu();
 			choice = sc.nextLine();
-			
-			if(Integer.parseInt(choice) == 3) {
+
+			if (Integer.parseInt(choice) == 3) {
 				new JoinUI();
 			}
-			
+
 			String usrid;
 			System.out.print("> ID를 입력하세요 : ");
 			usrid = sc.nextLine();
 			vo = dao.findById(usrid);
-			
+
 			if (usrid.trim().equals("")) {
 				System.out.println("문자로 입력해주세요");
 				return;
@@ -37,24 +37,36 @@ public class LoginUI {
 				System.out.println("아이디가 존재하지 않습니다.");
 				return;
 			}
-			if(Integer.parseInt(vo.getTeamnum()) != 0) {//팀번호가 0이 아니면 
+			if (Integer.parseInt(vo.getTeamnum()) != 0) {// 팀번호가 0이 아니면
 				switch (choice) {
-				case "1": login(vo); break;
-				case "2": pwsken(vo); break;
-				case "3": new JoinUI(); break;
-				
+				case "1":
+					login(vo);
+					break;
+				case "2":
+					pwsken(vo);
+					break;
+				case "3":
+					new JoinUI();
+					break;
+
 				case "0":
 					System.out.println("** 프로그램을 종료합니다.");
 					System.exit(0);
 				default:
 					System.out.println("err) 메뉴를 다시 선택해 주세요");
 				}
-			}else {//팀번호가 0이면
+			} else {// 팀번호가 0이면
 				switch (choice) {
-				case "1": ganLogin(vo); break;
-				case "2": pwsken(vo); break;
-				case "3": new JoinUI(); break;
-				
+				case "1":
+					ganLogin(vo);
+					break;
+				case "2":
+					pwsken(vo);
+					break;
+				case "3":
+					new JoinUI();
+					break;
+
 				case "0":
 					System.out.println("** 프로그램을 종료합니다.");
 					System.exit(0);
@@ -65,9 +77,7 @@ public class LoginUI {
 		}
 	}
 
-
-
-	private void login(UserVO vo) { //일반 회원 로그인
+	private void login(UserVO vo) { // 일반 회원 로그인
 		String pw;
 		System.out.print("> PW 를 입력하세요 : ");
 		pw = sc.nextLine();
@@ -77,13 +87,13 @@ public class LoginUI {
 		}
 		vo = dao.findById(vo.getUsrid());
 		dao.Logins(vo);
-		System.out.printf(" *** %s님 환영합니다!*** ",vo.getUsrname());
-		
+		System.out.printf(" *** %s님 환영합니다!*** ", vo.getUsrname());
+
 		loginMenu(vo);
-		
+
 	}
-	
-	private void ganLogin(UserVO vo) { //관리자 로그인
+
+	private void ganLogin(UserVO vo) { // 관리자 로그인
 		String pw;
 		System.out.print("> PW 를 입력하세요 : ");
 		pw = sc.nextLine();
@@ -93,12 +103,11 @@ public class LoginUI {
 		}
 		vo = dao.findById(vo.getUsrid());
 		dao.Logins(vo);
-		System.out.printf(" *** %s님 환영합니다!*** ",vo.getUsrname());
-		
+		System.out.printf(" *** %s님 환영합니다!*** ", vo.getUsrname());
+
 		ganginMenu(vo);
-		
+
 	}
-	
 
 	private void pwsken(UserVO vo) {
 
@@ -111,7 +120,8 @@ public class LoginUI {
 			return;
 		}
 	}
-	//유저 메뉴
+
+	// 유저 메뉴
 	private void loginMenu(UserVO vo) {
 		String choice;
 		while (true) {
@@ -119,12 +129,18 @@ public class LoginUI {
 			choice = sc.nextLine();
 
 			switch (choice) {
-			case "1": userReply(vo); break;
-      case "2":  new BoardUI(vo); break;
-			case "3": new memberListUI(vo); break;
-			case "4": new TodoUI(vo); 
+			case "1":
+				new memberListUI(vo);
 				break;
-			
+			case "2":
+				new BoardUI(vo);
+				break;
+			case "3":
+				new TodoUI(vo);
+				break;
+			case "4":
+				new SchedulerUI(vo);
+				break;
 
 			case "0":
 				return;
@@ -133,9 +149,10 @@ public class LoginUI {
 			}
 
 		}
-		
+
 	}
-	//관리자 메뉴
+
+	// 관리자 메뉴
 	private void ganginMenu(UserVO vo) {
 		String choice;
 		while (true) {
@@ -143,12 +160,12 @@ public class LoginUI {
 			choice = sc.nextLine();
 
 			switch (choice) {
+
 			case "1": allReply(vo); break;
 			case "2":  new BoardUI(vo); break;
 			case "3":  new NoticeUI(vo); break;
 //			case "4":  break;
 //			case "5":  break;
-			
 
 			case "0":
 				return;
@@ -157,27 +174,26 @@ public class LoginUI {
 			}
 		}
 	}
-	
 
 	private void userReply(UserVO vo) {
 		List<UserVO> list = dao.userReply(vo);
 		Iterator<UserVO> iter = list.iterator();
 		System.out.println(vo.getTeamnum() + "번의 팀 맴버 목록 입니다.");
-		
-		while(iter.hasNext())
+
+		while (iter.hasNext())
 			System.out.println(iter.next());
 		System.out.println();
 	}
-	
+
 	private void allReply(UserVO vo) {
 		List<UserVO> list = dao.allReply(vo);
 		Iterator<UserVO> iter = list.iterator();
-		
-		while(iter.hasNext())
+
+		while (iter.hasNext())
 			System.out.println(iter.next());
 		System.out.println();
 	}
-	
+
 	private void Menu() {
 		System.out.println();
 		System.out.println("============[로  그  인]===============");
@@ -188,7 +204,7 @@ public class LoginUI {
 		System.out.println("==================================");
 		System.out.print("                선택 > ");
 	}
-	
+
 	private void loMenu() {
 		System.out.println();
 		System.out.println("============[로  그  인]===============");
@@ -201,7 +217,7 @@ public class LoginUI {
 		System.out.println("==================================");
 		System.out.print("                선택 > ");
 	}
-	
+
 	private void ganMenu() {
 		System.out.println();
 		System.out.println("============[로  그  인]===============");
@@ -214,5 +230,5 @@ public class LoginUI {
 		System.out.println("==================================");
 		System.out.print("                선택 > ");
 	}
-	
+
 }

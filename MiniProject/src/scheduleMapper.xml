@@ -7,5 +7,68 @@
 	name insert, update, delete => resultType을 지정하지 않아야 한다. -->
 
 <mapper namespace="net.scit.dao.ScheduleMapper">	<!-- 자바의 인터페이스 -->
-	
+
+	<sql id="selectBy">
+		SELECT s_num, s_content, usrid, TO_CHAR(startdate,
+		'YY/MM/DD') as startdate, TO_CHAR(enddate, 'YY/MM/DD') as enddate
+		FROM
+		schedule
+	</sql>
+
+	<select id="listByPersonMonth" parameterType="map"
+		resultType="Schedule">
+		<include refid="selectBy"></include>
+		WHERE usrid = #{usrid}
+		AND (TO_CHAR(startdate, 'YYYY/MM') = #{s_date}
+		OR TO_CHAR(enddate, 'YYYY/MM') = #{s_date})
+	</select>
+
+	<select id="listByTeamMonth" parameterType="map"
+		resultType="Schedule">
+		<include refid="selectBy"></include>
+		WHERE teamnum = #{teamnum}
+		AND (TO_CHAR(startdate, 'YYYY/MM') =
+		#{s_date} OR TO_CHAR(enddate, 'YYYY/MM') = #{s_date})
+	</select>
+
+	<select id="listByPersonDay" parameterType="map"
+		resultType="Schedule">
+		<include refid="selectBy"></include>
+		<![CDATA[WHERE (startdate <= TO_DATE(#{s_date}, 'YY/MM/DD')
+		AND enddate >=
+		TO_DATE(#{s_date}, 'YY/MM/DD') + 0.99999)
+		AND usrid = #{usrid}]]>
+	</select>
+
+	<select id="listByTeamDay" parameterType="map"
+		resultType="Schedule">
+		<include refid="selectBy"></include>
+		<![CDATA[WHERE (startdate <= TO_DATE(#{s_date}, 'YY/MM/DD')
+		AND enddate >=
+		TO_DATE(#{s_date}, 'YY/MM/DD') + 0.99999)
+		AND teamnum = #{teamnum}]]>
+	</select>
+
+	<select id="findByNum" parameterType="String"
+		resultType="Schedule">
+		<include refid="selectBy"></include>
+		WHERE s_num = #{s_num}
+	</select>
+
+	<insert id="insertSchedule">
+		INSERT INTO schedule
+		VALUES(s_num_seq.NEXTVAL, #{s_content}, #{usrid}, #{startdate}, #{enddate}, #{teamnum})
+	</insert>
+
+	<update id="updateSchedule" parameterType="Schedule">
+		UPDATE schedule
+		SET usrid = #{usrid}, teamnum = #{teamnum}, s_content = #{s_content}, startdate = #{startdate}, enddate = #{enddate}
+		WHERE s_num = #{s_num}
+	</update>
+
+	<delete id="deleteSchedule" parameterType="string">
+		DELETE FROM schedule
+		WHERE s_num = #{s_num}
+	</delete>
+
 </mapper>
