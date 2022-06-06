@@ -36,7 +36,7 @@ public class ReplyUI {
 			deleteReply(vo,b_num);
 			break;
 		case "0":
-			new BoardUI(vo);
+			//new BoardUI(vo);
 		}
 	}
 

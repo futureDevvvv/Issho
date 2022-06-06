@@ -34,7 +34,7 @@ public class BlikeUI {
 			break;
 			
 		case "0":
-			new BoardUI(vo);
+			//new BoardUI(vo);
 		}
 	}
 
