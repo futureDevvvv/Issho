@@ -13,6 +13,9 @@ import net.scit.vo.UserVO;
 
 
 public class BoardUI {
+	/*
+	
+	
 	Scanner sc = new Scanner(System.in);
 	Map<String, Object> map= new HashMap<>();
 	UserDAO dao = new UserDAO();
@@ -257,4 +260,9 @@ public class BoardUI {
 		System.out.println("==================================");
 		System.out.print	("                선택 > ");
 	}
+	
+	
+	
+	
+	*/
 }

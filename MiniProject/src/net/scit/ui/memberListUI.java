@@ -10,6 +10,7 @@ import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -84,17 +85,45 @@ public class memberListUI extends JFrame {
 		tf1.setBounds(110, 630, 180, 30);
 		c.add(tf1);
 
-		JButton btn1 = new JButton("1:1 채팅");
+		JButton btn1 = new JButton("1:1 채팅 시작");
 		btn1.setBounds(320, 630, 100, 30);
 		c.add(btn1);
-
+		
 		btn1.addActionListener(new ActionListener() {
-
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				/*
+				
+				String memId = tf1.getText();
+				
+				if(memId.length() == 0 || memId.equals("")) {
+					JOptionPane.showMessageDialog(null, "팀원 아이디가 입력되지 않았습니다.", "에러", JOptionPane.ERROR_MESSAGE);
+					
+					return;
+				}
+				
+				
+				*/
+				//new MessengerServer();
+				
+			}
+		});
+		
+		JButton btn2 = new JButton("메신저 확인");
+		btn2.setBounds(320, 690, 100, 30);
+		c.add(btn2);
+		
+		btn2.addActionListener(new ActionListener() {
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
+			//	new MessengerClient();
 			}
 		});
+
 
 		// 윈도우 창 크기 설정
 		setSize(700, 900);

@@ -8,55 +8,63 @@
 	<select id="getCount" resultType="int">
 		SELECT count(*) FROM Board
 	</select>
-	
+
 	<select id="adminlistBoard" resultType="Board">
 		select *
 		from Board
-		</select>
-		
-		<select id="listBoard" resultType="Board" parameterType="String">
+	</select>
+
+	<select id="listBoard" resultType="Board" parameterType="String">
 		select *
 		from Board
 		where teamnum = #{teamnum}
-		</select>
-		
-		<insert id="weiterBoard" parameterType="Board">
-			INSERT INTO Board
-			(b_num,b_title,b_content,usrid,teamnum)
-			VALUES
-			(b_num_seq.nextval,#{b_title},#{b_content},#{usrid},#{teamnum})
-		</insert>
-		
-		<select id="readBoard" resultType="Board" parameterType="String">
+	</select>
+
+	<insert id="weiterBoard" parameterType="Board">
+		INSERT INTO Board
+		(b_num,b_title,b_content,usrid,teamnum)
+		VALUES
+		(b_num_seq.nextval,#{b_title},#{b_content},#{usrid},#{teamnum})
+	</insert>
+
+	<select id="readBoard" resultType="Board" parameterType="String">
 		select *
-		from Board 
+		from Board
 		where b_num = #{b_num}
-		</select>
-		<delete id="deletBoard" parameterType="String">
+	</select>
+	<delete id="deletBoard" parameterType="String">
 		DELETE
 		Board
-		where b_num = #{b_num}
-		</delete>
-		<select id="beBoard" resultType="Board" parameterType="String">
+		where b_num =
+		#{b_num}
+	</delete>
+	<select id="beBoard" resultType="Board" parameterType="String">
 		select *
-		from Board 
+		from Board
 		where b_num = #{b_num}
-		</select>
-		<select id="searchBoard" resultType="Board" parameterType="String">
+		
+		
+	</select>
+	<select id="searchBoard" resultType="Board"
+		parameterType="map">
 		SELECT *
 		FROM board
 		WHERE
 		<choose>
-			<when test="searchItem == 'usrid'">writer</when>
-			<when test="searchItem == 'b_title'">title</when>
-			<when test="searchItem == 'b_content'">text</when>
+			<when test="searchItem == 'usrid'">usrid</when>
+			<when test="searchItem == 'b_title'">b_title</when>
+			<when test="searchItem == 'b_content'">b_content</when>
 		</choose>
 		LIKE '%' || #{searchWord} || '%'
 	</select>
-	
-		
-		
-		
-		
+
+	<select id="listBoardAll" resultType="Board">
+		SELECT * FROM board
+		ORDER BY
+		b_regdate DESC
+	</select>
+
+
+
 
 </mapper>
