@@ -121,6 +121,7 @@ public class SchedulerUI extends JFrame {
 		year = now.get(Calendar.YEAR);// 2021년
 		month = now.get(Calendar.MONTH) + 1; // 0월 == 1월
 		date = now.get(Calendar.DATE);
+
 		for (int i = year; i <= year + 50; i++) {
 			yearModelWindow.addElement(i);
 		}
@@ -720,6 +721,19 @@ public class SchedulerUI extends JFrame {
 					startField.setText("");
 					endField.setText("");
 				}
+			}
+		});
+
+		JButton menu = new JButton("<< 이전");
+		menu.setBounds(20, 750, 100, 30);
+		c.add(menu);
+
+		menu.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new MenuUI(vo);
+				setVisible(false);
 			}
 		});
 

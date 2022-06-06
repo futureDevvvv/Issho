@@ -8,6 +8,9 @@ import net.scit.dao.UserDAO;
 import net.scit.vo.UserVO;
 
 public class LoginUI {
+	
+	/*
+	
 	UserVO vo = new UserVO();
 	Scanner sc = new Scanner(System.in);
 	UserDAO dao = new UserDAO();
@@ -141,7 +144,12 @@ public class LoginUI {
 			case "4":
 				new SchedulerUI(vo);
 				break;
-
+			case "5" : 
+				new MessengerServer(vo);
+				break;
+			case "6" :
+				new MessengerClient(vo);
+				break;
 			case "0":
 				return;
 			default:
@@ -230,5 +238,8 @@ public class LoginUI {
 		System.out.println("==================================");
 		System.out.print("                선택 > ");
 	}
+	
+	
+	*/
 
 }

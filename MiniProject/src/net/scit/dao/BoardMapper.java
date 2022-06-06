@@ -22,7 +22,7 @@ public interface BoardMapper {
 	public int weiterBoard(BoardVO board); //
 
 	//게시글 검색
-	public List<BoardVO>  searchBoard(Map<String, Object> map);
+	public List<BoardVO> searchBoard(Map<String, String> map);
 	//게시글 삭제
 	public int deletBoard(String b_num); //
 	//게시글 수정
@@ -37,7 +37,7 @@ public interface BoardMapper {
 	public BoardVO beBoard(String b_num);	//기존값 찾기
 
 	public List<BlikeVO> listLike();
-
+	public List<BoardVO> listBoardAll();
 
 	
 	
