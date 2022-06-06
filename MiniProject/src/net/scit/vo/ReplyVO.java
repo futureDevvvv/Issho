@@ -13,6 +13,11 @@ public class ReplyVO {
 		this.r_content = r_content;
 		this.usrid = usrid;
 	}
+	
+	public void output() {
+		System.out.println("덧글번호 :" +r_num + "작성자 : " + usrid);
+		System.out.println("내용 : " + r_content);
+	}
 
 	public String getR_num() {
 		return r_num;
@@ -48,8 +53,7 @@ public class ReplyVO {
 
 	@Override
 	public String toString() {
-		return "ReplyVO [r_num=" + r_num + ", b_num=" + b_num + ", r_content=" + r_content + ", usrid=" + usrid + "]";
+		return "덧글번호 = " + r_num + " , 글번호 = " + b_num  + ", 작성자 = " + usrid + " , 내용 : " + r_content;
 	}
-	
 	
 }
