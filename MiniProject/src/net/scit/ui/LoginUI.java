@@ -8,6 +8,9 @@ import net.scit.dao.UserDAO;
 import net.scit.vo.UserVO;
 
 public class LoginUI {
+	
+	/*
+	
 	UserVO vo = new UserVO();
 	Scanner sc = new Scanner(System.in);
 	UserDAO dao = new UserDAO();
@@ -237,5 +240,8 @@ public class LoginUI {
 		System.out.println("==================================");
 		System.out.print("                선택 > ");
 	}
+	
+	
+	*/
 
 }

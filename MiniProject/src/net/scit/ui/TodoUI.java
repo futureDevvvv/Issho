@@ -351,7 +351,20 @@ public class TodoUI extends JFrame {
 		JButton btn4 = new JButton("삭제");
 		btn4.setBounds(450, 700, 100, 30);
 		c.add(btn4);
-
+		
+		JButton menu = new JButton("<< 이전");
+		menu.setBounds(20, 750, 100, 30);
+		c.add(menu);
+		
+		menu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new MenuUI(vo);
+				setVisible(false);
+			}
+		});
+		
 		btn2.addActionListener(new ActionListener() {
 
 			@Override
