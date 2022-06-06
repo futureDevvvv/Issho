@@ -42,11 +42,10 @@
 		select *
 		from Board
 		where b_num = #{b_num}
-		
-		
+
+
 	</select>
-	<select id="searchBoard" resultType="Board"
-		parameterType="map">
+	<select id="searchBoard" resultType="Board" parameterType="map">
 		SELECT *
 		FROM board
 		WHERE
