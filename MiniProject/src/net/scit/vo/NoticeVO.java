@@ -51,8 +51,8 @@ public class NoticeVO {
 
 	@Override
 	public String toString() {
-		return "NoticeVO [n_num=" + n_num + ", n_title=" + n_title + ", n_content=" + n_content + ", n_hitcount="
-				+ n_hitcount + "]";
+		System.out.println("글번호 = " + n_num + " , 제목 = " + n_title + " , 조회수 = "+ n_hitcount);
+		return "내용 = " + n_content;
 	}
 
 }

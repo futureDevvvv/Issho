@@ -56,6 +56,8 @@ public class BoardDAO {
 		session.commit();
 		return result;
 	}
+	
+	
 
 	public int weiterBoard(BoardVO board) {
 		SqlSession session = null;
@@ -106,9 +108,23 @@ public class BoardDAO {
 		session = factory.openSession();
 
 		BoardMapper mapper = session.getMapper(BoardMapper.class);
+
 		List<BoardVO> list = mapper.listBoardAll();
 		session.commit();
 		return list;
 	}
+
+	public int updateBoard(BoardVO board) {
+		SqlSession session = null;
+		session = factory.openSession();
+
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+
+		int result = mapper.updateBoard(board);
+		session.commit();
+		return result;
+	}
+	
+	
 
 }

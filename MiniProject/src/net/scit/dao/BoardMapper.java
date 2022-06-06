@@ -3,6 +3,7 @@ package net.scit.dao;
 import java.util.List;
 import java.util.Map;
 
+import net.scit.vo.BlikeVO;
 import net.scit.vo.BoardVO;
 import net.scit.vo.UserVO;
 
@@ -14,6 +15,8 @@ public interface BoardMapper {
 	//게시글 조회
 	public BoardVO readBoard(String boardunm); //
 	
+	//조회수 수정
+	public int incrementHitcount(String b_num);
 	
 	//게시글 등록
 	public int weiterBoard(BoardVO board); //
@@ -33,6 +36,7 @@ public interface BoardMapper {
 
 	public BoardVO beBoard(String b_num);	//기존값 찾기
 
+	public List<BlikeVO> listLike();
 	public List<BoardVO> listBoardAll();
 
 	
