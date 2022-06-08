@@ -8,6 +8,9 @@ import net.scit.vo.TodoVO;
 
 public interface ScheduleMapper {
 
+	//전체 일정
+	public List<ScheduleVO> AllSchList();
+	
 	// 개인별 월별 검색
 	public List<ScheduleVO> listByPersonMonth(Map<String, String> map);
 

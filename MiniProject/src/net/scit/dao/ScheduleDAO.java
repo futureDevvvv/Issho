@@ -127,4 +127,14 @@ public class ScheduleDAO {
 
 	}
 
+	public List<ScheduleVO> AllSchList() {
+		SqlSession session = null;
+		session = factory.openSession();
+
+		ScheduleMapper mapper = session.getMapper(ScheduleMapper.class);
+
+		List<ScheduleVO> list = mapper.AllSchList();
+		return list;
+	}
+
 }

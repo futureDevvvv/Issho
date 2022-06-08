@@ -1,5 +1,6 @@
 package net.scit.ui;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -15,10 +16,12 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 
 import net.scit.dao.TodoDAO;
 import net.scit.dao.UserDAO;
@@ -67,16 +70,12 @@ public class TodoUI extends JFrame {
 		// 창 닫기 버튼 클릭 시 종료
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		Font forTitle = new Font("굴림", Font.BOLD, 25);
+		Font forTitle = new Font("KoPubWorld돋움체 Light", Font.BOLD, 25);
 
 		JLabel title = new JLabel("업무 관리   ");
 		title.setFont(forTitle);
 		title.setBounds(20, 10, 150, 30);
 		c.add(title);
-
-		JLabel info = new JLabel(teamname + " " + name + " 님");
-		info.setBounds(130, 10, 150, 30);
-		c.add(info);
 
 		JLabel lb1 = new JLabel("조회 범위");
 		lb1.setBounds(20, 50, 100, 30);
@@ -119,7 +118,7 @@ public class TodoUI extends JFrame {
 
 		// textArea / 진행전
 
-		Font fortextArea = new Font("굴림", Font.BOLD, 15);
+		Font fortextArea = new Font("KoPubWorld돋움체 Light", Font.BOLD, 15);
 
 		JLabel before = new JLabel("진행전");
 		before.setFont(fortextArea);
@@ -172,17 +171,19 @@ public class TodoUI extends JFrame {
 						for (int i = 0; i < list.size(); i++) {
 
 							if (list.get(i).getT_state() == 0) {
-								jtx1.append(list.get(i).getT_num() + "\n" + list.get(i).getT_content() + "\n"
-										+ userDao.findById(list.get(i).getUsrid()) + "\n" + list.get(i).getT_regdate()
+								jtx1.append(list.get(i).getT_num() + list.get(i).getT_content() + "\n"
+										+ "담당자 : " + userDao.findById(list.get(i).getUsrid()) + "\n" + list.get(i).getT_regdate()
 										+ "\n");
 								jtx1.append("------------------------------------\n");
 							} else if (list.get(i).getT_state() == 1) {
-								jtx2.append(list.get(i).getT_content() + "\n" + userDao.findById(list.get(i).getUsrid())
-										+ "\n" + list.get(i).getT_regdate() + "\n");
+								jtx2.append(list.get(i).getT_num() + list.get(i).getT_content() + "\n"
+										+ "담당자 : " + userDao.findById(list.get(i).getUsrid()) + "\n" + list.get(i).getT_regdate()
+										+ "\n");
 								jtx2.append("------------------------------------\n");
 							} else {
-								jtx3.append(list.get(i).getT_content() + "\n" + userDao.findById(list.get(i).getUsrid())
-										+ "\n" + list.get(i).getT_regdate() + "\n");
+								jtx3.append(list.get(i).getT_num() + list.get(i).getT_content() + "\n"
+										+ "담당자 : " + userDao.findById(list.get(i).getUsrid()) + "\n" + list.get(i).getT_regdate()
+										+ "\n");
 								jtx3.append("------------------------------------\n");
 							}
 						}
@@ -199,17 +200,20 @@ public class TodoUI extends JFrame {
 						for (int i = 0; i < list.size(); i++) {
 
 							if (list.get(i).getT_state() == 0) {
-								jtx3.append(list.get(i).getT_content() + "\n" + userDao.findById(list.get(i).getUsrid())
-										+ "\n" + list.get(i).getT_regdate() + "\n");
-								// jtx1.append("------------------------------------\n");
+								jtx1.append(list.get(i).getT_num() + " " + list.get(i).getT_content() + "\n"
+										+ "담당자 : " + userDao.findById(list.get(i).getUsrid()) + "\n" + list.get(i).getT_regdate()
+										+ "\n");
+								jtx1.append("----------------------\n");
 							} else if (list.get(i).getT_state() == 1) {
-								jtx2.append(list.get(i).getT_content() + "\n" + userDao.findById(list.get(i).getUsrid())
-										+ "\n" + list.get(i).getT_regdate() + "\n");
-								jtx2.append("------------------------------------\n");
+								jtx2.append(list.get(i).getT_num() + " " + list.get(i).getT_content() + "\n"
+										+ "담당자 : " + userDao.findById(list.get(i).getUsrid()) + "\n" + list.get(i).getT_regdate()
+										+ "\n");
+								jtx2.append("----------------------\n");
 							} else {
-								jtx3.append(list.get(i).getT_content() + "\n" + userDao.findById(list.get(i).getUsrid())
-										+ "\n" + list.get(i).getT_regdate() + "\n");
-								jtx3.append("------------------------------------\n");
+								jtx3.append(list.get(i).getT_num() + " " + list.get(i).getT_content() + "\n"
+										+ "담당자 : " + userDao.findById(list.get(i).getUsrid()) + "\n" + list.get(i).getT_regdate()
+										+ "\n");
+								jtx3.append("----------------------\n");
 							}
 						}
 					}
@@ -224,18 +228,20 @@ public class TodoUI extends JFrame {
 						for (int i = 0; i < list.size(); i++) {
 
 							if (list.get(i).getT_state() == 0) {
-								jtx1.append(list.get(i).getT_content() + "\n" + userDao.findById(list.get(i).getUsrid())
-										+ "\n" + list.get(i).getT_regdate() + "\n");
-
-								jtx1.append("------------------------------------\n");
+								jtx1.append(list.get(i).getT_num() + " " + list.get(i).getT_content() + "\n"
+										+ "담당자 : " + userDao.findById(list.get(i).getUsrid()) + "\n" + list.get(i).getT_regdate()
+										+ "\n");
+								jtx1.append("----------------------\n");
 							} else if (list.get(i).getT_state() == 1) {
-								jtx2.append(list.get(i).getT_content() + "\n" + userDao.findById(list.get(i).getUsrid())
-										+ "\n" + list.get(i).getT_regdate() + "\n");
-								jtx2.append("------------------------------------\n");
+								jtx2.append(list.get(i).getT_num() + " " + list.get(i).getT_content() + "\n"
+										+ "담당자 : " + userDao.findById(list.get(i).getUsrid()) + "\n" + list.get(i).getT_regdate()
+										+ "\n");
+								jtx2.append("----------------------\n");
 							} else {
-								jtx3.append(list.get(i).getT_content() + "\n" + userDao.findById(list.get(i).getUsrid())
-										+ "\n" + list.get(i).getT_regdate() + "\n");
-								jtx3.append("------------------------------------\n");
+								jtx3.append(list.get(i).getT_num() + " " + list.get(i).getT_content() + "\n"
+										+ "담당자 : " + userDao.findById(list.get(i).getUsrid()) + "\n" + list.get(i).getT_regdate()
+										+ "\n");
+								jtx3.append("----------------------\n");
 							}
 						}
 
@@ -254,17 +260,20 @@ public class TodoUI extends JFrame {
 							System.out.println("2번");
 
 							if (list.get(i).getT_state() == 0) {
-								jtx1.append(list.get(i).getT_content() + "\n" + userDao.findById(list.get(i).getUsrid())
-										+ "\n" + list.get(i).getT_regdate() + "\n");
-								jtx1.append("------------------------------------\n");
+								jtx1.append(list.get(i).getT_num() + " " + list.get(i).getT_content() + "\n"
+										+ "담당자 : " + userDao.findById(list.get(i).getUsrid()) + "\n" + list.get(i).getT_regdate()
+										+ "\n");
+								jtx1.append("----------------------\n");
 							} else if (list.get(i).getT_state() == 1) {
-								jtx2.append(list.get(i).getT_content() + "\n" + userDao.findById(list.get(i).getUsrid())
-										+ "\n" + list.get(i).getT_regdate() + "\n");
-								jtx2.append("------------------------------------\n");
+								jtx2.append(list.get(i).getT_num() + " " + list.get(i).getT_content() + "\n"
+										+ "담당자 : " + userDao.findById(list.get(i).getUsrid()) + "\n" + list.get(i).getT_regdate()
+										+ "\n");
+								jtx2.append("----------------------\n");
 							} else {
-								jtx3.append(list.get(i).getT_content() + "\n" + userDao.findById(list.get(i).getUsrid())
-										+ "\n" + list.get(i).getT_regdate() + "\n");
-								jtx3.append("------------------------------------\n");
+								jtx3.append(list.get(i).getT_num() + " " + list.get(i).getT_content() + "\n"
+										+ "담당자 : " + userDao.findById(list.get(i).getUsrid()) + "\n" + list.get(i).getT_regdate()
+										+ "\n");
+								jtx3.append("----------------------\n");
 							}
 						}
 					}
@@ -477,6 +486,10 @@ public class TodoUI extends JFrame {
 
 				int updateResult = todoDao.updateTodo(todo);
 
+				tf2.setText("");
+				rd3.setSelected(true);
+
+				
 				if (updateResult == 1) {
 					JOptionPane.showMessageDialog(null, "수정이 완료되었습니다.");
 
@@ -509,6 +522,10 @@ public class TodoUI extends JFrame {
 
 					if (deleteResult == 1) {
 						JOptionPane.showMessageDialog(null, "삭제가 완료되었습니다.");
+						
+						tf2.setText("");
+						rd3.setSelected(true);
+
 
 					} else {
 						JOptionPane.showMessageDialog(null, "오류가 발생했습니다.", "에러", JOptionPane.ERROR_MESSAGE);
@@ -516,6 +533,11 @@ public class TodoUI extends JFrame {
 				}
 			}
 		});
+		
+		JPanel SchBorder = new JPanel();
+		SchBorder.setBorder(new LineBorder(Color.DARK_GRAY, 1));
+		SchBorder.setBounds(10, 460, 650, 280);
+		c.add(SchBorder);
 
 		// 윈도우 창 크기 설정
 		setSize(700, 900);

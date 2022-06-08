@@ -12,6 +12,17 @@ public class TodoDAO {
 
 	SqlSessionFactory factory = MybatisConfig.getSqlSessionFactory();
 
+	public List<TodoVO> listAll() {
+		SqlSession session = null;
+		session = factory.openSession();
+
+		TodoMapper mapper = session.getMapper(TodoMapper.class);
+
+		List<TodoVO> list = mapper.listAll();
+
+		return list;
+	}
+	
 	public List<TodoVO> listByPerson(String usrid) {
 		SqlSession session = null;
 		session = factory.openSession();
@@ -145,4 +156,6 @@ public class TodoDAO {
 		
 		return todo;
 	}
+
+
 }

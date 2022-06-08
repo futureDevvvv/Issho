@@ -24,11 +24,12 @@
 	<insert id="joinBoard" parameterType="User">
 		INSERT INTO USR
 		VALUES
-		( #{usrid}, #{pw},
+		(
+		#{usrid}, #{pw},
 		#{usrname}, #{teamnum})
 	</insert>
 
-	
+
 	<select id="Logins" resultType="User" parameterType="User">
 		SELECT *
 		FROM
@@ -44,7 +45,7 @@
 		USR
 		where teamnum = #{teamnum}
 	</select>
-	
+
 	<select id="allReply" resultType="User" parameterType="User">
 		SELECT *
 		FROM
@@ -57,5 +58,12 @@
 		WHERE usrname = #{usrname}
 	</select>
 
+	<select id="AllMemList" resultType="User">
+		SELECT *
+		FROM
+		USR
+		WHERE NOT usrid IN ('admin')
+		ORDER BY teamnum
+	</select>
 
 </mapper>

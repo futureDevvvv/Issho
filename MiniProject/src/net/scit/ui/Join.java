@@ -46,10 +46,10 @@ public class Join extends JFrame {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		Font join = new Font("굴림", Font.PLAIN, 25);
+		Font join = new Font("KoPubWorld돋움체 Light", Font.BOLD, 25);
 		JLabel lblNewLabel = new JLabel("신규 사원 등록");
 		lblNewLabel.setFont(join);
-		lblNewLabel.setBounds(250, 100, 300, 50);
+		lblNewLabel.setBounds(270, 100, 300, 50);
 		c.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("아이디");

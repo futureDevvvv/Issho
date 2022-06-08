@@ -10,8 +10,9 @@ import net.scit.vo.UserVO;
 public class UserDAO {
 //회원가입, 로그인
 	SqlSessionFactory factory = MybatisConfig.getSqlSessionFactory();
+
 	// 중복 아이디 체크 메소드
-	public UserVO findById(String usrid) { 
+	public UserVO findById(String usrid) {
 		SqlSession session = null;
 		session = factory.openSession();
 
@@ -21,7 +22,8 @@ public class UserDAO {
 		session.commit();
 		return vo;
 	}
-	//팀번호 찾는 메소드
+
+	// 팀번호 찾는 메소드
 	public int findByTeamnum(String teamnum) {
 		SqlSession session = null;
 		session = factory.openSession();
@@ -32,7 +34,7 @@ public class UserDAO {
 		session.commit();
 		return result;
 	}
-	
+
 	public int joinBoard(UserVO uservo) { // 회원가입 메소드
 		SqlSession session = null;
 		session = factory.openSession();
@@ -43,7 +45,8 @@ public class UserDAO {
 
 		return result;
 	}
-	//로그인세션
+
+	// 로그인세션
 	public UserVO Logins(UserVO vo) {
 		SqlSession session = null;
 		session = factory.openSession();
@@ -65,7 +68,8 @@ public class UserDAO {
 		return list;
 
 	}
-	//관리자 기준 정보보기
+
+	// 관리자 기준 정보보기
 	public List<UserVO> allReply(UserVO vo) {
 		SqlSession session = null;
 		session = factory.openSession();
@@ -81,23 +85,23 @@ public class UserDAO {
 		SqlSession session = null;
 		session = factory.openSession();
 		UserMapper mapper = session.getMapper(UserMapper.class);
-		
+
 		UserVO vo = mapper.findByName(usrname);
-		
+
 		return vo;
-		
+
 	}
 
+	// 전체 회원 조회
 
+	public List<UserVO> AllMemList() {
+		SqlSession session = null;
+		session = factory.openSession();
+		UserMapper mapper = session.getMapper(UserMapper.class);
 
+		List<UserVO> list = mapper.AllMemList();
 
-
-	
-
-	
-	
-	
-	
-	
+		return list;
+	}
 
 }

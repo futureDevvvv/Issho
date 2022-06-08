@@ -26,5 +26,8 @@ public interface UserMapper {
 	//이름으로 팀원 조회
 	public UserVO findByName(String usrname);//
 	
+	//전체 회원 조회
+	public List<UserVO> AllMemList();
+	
 }
 

@@ -52,12 +52,14 @@ public class BoardDAO {
 		session = factory.openSession();
 
 		BoardMapper mapper = session.getMapper(BoardMapper.class);
+
+		mapper.incrementHitcount(b_num);
+
 		BoardVO result = mapper.readBoard(b_num);
+
 		session.commit();
 		return result;
 	}
-	
-	
 
 	public int weiterBoard(BoardVO board) {
 		SqlSession session = null;
@@ -81,14 +83,15 @@ public class BoardDAO {
 		return result;
 	}
 
-	public void deletBoard(String b_num) {
+	public int deletBoard(String b_num) {
 		SqlSession session = null;
 		session = factory.openSession();
 
 		BoardMapper mapper = session.getMapper(BoardMapper.class);
-		mapper.deletBoard(b_num);
+		int result = mapper.deletBoard(b_num);
 
 		session.commit();
+		return result;
 	}
 
 	public List<BoardVO> searchBoard(Map<String, String> map) {
@@ -110,7 +113,6 @@ public class BoardDAO {
 		BoardMapper mapper = session.getMapper(BoardMapper.class);
 
 		List<BoardVO> list = mapper.listBoardAll();
-		session.commit();
 		return list;
 	}
 
@@ -124,7 +126,15 @@ public class BoardDAO {
 		session.commit();
 		return result;
 	}
-	
-	
+
+	public List<BoardVO> selectById(String usrid) {
+		SqlSession session = null;
+		session = factory.openSession();
+
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+
+		List<BoardVO> list = mapper.selectById(usrid);
+		return list;
+	}
 
 }

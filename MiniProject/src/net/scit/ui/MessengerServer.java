@@ -2,8 +2,11 @@ package net.scit.ui;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
@@ -20,8 +23,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 import net.scit.dao.UserDAO;
 import net.scit.vo.UserVO;
@@ -44,6 +49,7 @@ public class MessengerServer extends JFrame {
 	private boolean stopSignal; // 스레드 종료 신호 저장
 
 	UserDAO userDao = new UserDAO();
+	List<UserVO> list = userDao.AllMemList();
 
 	String myName = null;
 	String memName = null;
@@ -93,60 +99,117 @@ public class MessengerServer extends JFrame {
 		Container c = getContentPane();
 		c.setLayout(null);
 
-		JLabel title = new JLabel("팀원 목록  ");
-		// title.setFont(forTitle);
-		title.setBounds(20, 10, 150, 30);
+		Font forTitle = new Font("KoPubWorld돋움체 Light", Font.BOLD, 25);
+
+		JLabel title = new JLabel("1:1 채팅 시작하기");
+		title.setFont(forTitle);
+		title.setBounds(20, 20, 200, 30);
 		c.add(title);
 
-		JLabel info = new JLabel(teamname);
-		info.setBounds(150, 10, 150, 30);
-		c.add(info);
+		/*
+		 * 
+		 * JLabel memListLb = new JLabel("구성원 목록"); memListLb.setBounds(20, 20, 200,
+		 * 30); c.add(memListLb);
+		 * 
+		 */
 
-		JTextArea jtx1 = new JTextArea();
-		JScrollPane jsp1 = new JScrollPane(jtx1);
-		jsp1.setBounds(20, 130, 200, 180);
-		c.add(jsp1);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(20, 80, 470, 200);
+		c.add(scrollPane);
 
-		for (int i = 0; i < memVector.size(); i++) {
-			jtx1.append(memVector.get(i));
+		String[] colNames = new String[] { "아이디", "이름", "소속 부서" };
+		Object[][] rowDatas = new Object[list.size()][colNames.length];
+
+		// JTable
+		JTable table = new JTable();
+
+		for (int i = 0; i < list.size(); i++) {
+			rowDatas[i] = new Object[] { list.get(i).getUsrid(), list.get(i).getUsrname(),
+					teamName(list.get(i).getTeamnum()) };
 		}
-		
-	
 
-		JLabel lb1 = new JLabel("팀원 아이디");
-		lb1.setBounds(250, 150, 100, 30);
-		c.add(lb1);
+		table.setModel(new DefaultTableModel(rowDatas, colNames) {
+			boolean[] columnEditables = new boolean[] { false, false, false };
 
-		JTextField tf1 = new JTextField();
-		tf1.setBounds(250, 190, 170, 30);
-		c.add(tf1);
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
 
-		JButton btn1 = new JButton("1:1 채팅 시작");
-		btn1.setBounds(250, 230, 170, 30);
-		c.add(btn1);
+		});
 
-		btn1.addActionListener(new ActionListener() {
+		table.setRowHeight(25);
+		table.getColumnModel().getColumn(0).setResizable(false);
+		table.getColumnModel().getColumn(0).setPreferredWidth(200);
+		table.getColumnModel().getColumn(1).setResizable(false);
+		table.getColumnModel().getColumn(1).setPreferredWidth(200);
+		table.getColumnModel().getColumn(2).setResizable(false);
+		table.getColumnModel().getColumn(2).setPreferredWidth(100);
+
+		scrollPane.setViewportView(table);
+
+		table.addMouseListener(new MouseAdapter() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void mouseClicked(MouseEvent e) {
+				int rowNum = table.getSelectedRow();
 
-				memId = tf1.getText();
+				memId = list.get(rowNum).getUsrid();
+				memName = list.get(rowNum).getUsrname();
 
-				if (memId.length() == 0 || memId.equals("")) {
-					JOptionPane.showMessageDialog(null, "팀원 아이디가 입력되지 않았습니다.", "에러", JOptionPane.ERROR_MESSAGE);
+				int answer = JOptionPane.showConfirmDialog(null, memName + "님과 1:1 채팅을 시작하겠습니까?", "일정 삭제",
+						JOptionPane.YES_NO_OPTION);
 
-					return;
-				} else {
+				if (answer == JOptionPane.YES_OPTION) {
 
-					memName = userDao.findById(memId).getUsrname();
-
-					JOptionPane.showMessageDialog(null, memName + " 님과의 채팅을 시도합니다.");
+					JOptionPane.showMessageDialog(null, memName + " 님과 연결합니다 . . .");
 
 					startService();
 				}
 			}
+
 		});
 
+		/*
+		 * 
+		 * JTextArea jtx1 = new JTextArea(); JScrollPane jsp1 = new JScrollPane(jtx1);
+		 * jsp1.setBounds(20, 130, 200, 180); c.add(jsp1);
+		 * 
+		 * for (int i = 0; i < memVector.size(); i++) { jtx1.append(memVector.get(i)); }
+		 * 
+		 */
+
+		/*
+		 * 
+		 * JLabel lb1 = new JLabel("팀원 아이디"); lb1.setBounds(250, 150, 100, 30);
+		 * c.add(lb1);
+		 * 
+		 * JTextField tf1 = new JTextField(); tf1.setBounds(250, 190, 170, 30);
+		 * c.add(tf1);
+		 * 
+		 * JButton btn1 = new JButton("1:1 채팅 시작"); btn1.setBounds(250, 230, 170, 30);
+		 * c.add(btn1);
+		 * 
+		 */
+
+		/*
+		 * btn1.addActionListener(new ActionListener() {
+		 * 
+		 * @Override public void actionPerformed(ActionEvent e) {
+		 * 
+		 * memId = tf1.getText();
+		 * 
+		 * if (memId.length() == 0 || memId.equals("")) {
+		 * JOptionPane.showMessageDialog(null, "팀원 아이디가 입력되지 않았습니다.", "에러",
+		 * JOptionPane.ERROR_MESSAGE);
+		 * 
+		 * return; } else {
+		 * 
+		 * memName = userDao.findById(memId).getUsrname();
+		 * 
+		 * JOptionPane.showMessageDialog(null, memName + " 님과의 채팅을 시도합니다.");
+		 * 
+		 * startService(); } } });
+		 */
 		textArea = new JTextArea();
 		textArea.setEditable(false);
 		c.add(textArea);
@@ -180,6 +243,19 @@ public class MessengerServer extends JFrame {
 			}
 		});
 
+		JButton menu = new JButton("<< 이전");
+		menu.setBounds(20, 750, 100, 30);
+		c.add(menu);
+
+		menu.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new MenuUI(vo);
+				setVisible(false);
+			}
+		});
+
 		setSize(700, 900);
 		setVisible(true);
 
@@ -187,10 +263,32 @@ public class MessengerServer extends JFrame {
 
 	}
 
+	public String teamName(String teamnum) {
+		String teamname = null;
+
+		switch (teamnum) {
+		case "10":
+			teamname = "기획부";
+			break;
+		case "20":
+			teamname = "영업부";
+			break;
+		case "30":
+			teamname = "인사부";
+			break;
+		case "40":
+			teamname = "개발부";
+			break;
+		}
+
+		return teamname;
+
+	}
+
 	private void startService() {
 		try {
 			serverSocket = new ServerSocket(7777);
-			
+
 			System.out.println("서비스 준비 완료");
 
 			password = memId;
@@ -254,7 +352,7 @@ public class MessengerServer extends JFrame {
 				System.exit(0);
 			} else {
 				// 그 외의 경우 client에게 메시지 전송
-				dos.writeUTF(myName + " : "+ text);
+				dos.writeUTF(myName + " : " + text);
 
 				// 초기화,커서 포커스
 				textField.setText("");

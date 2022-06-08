@@ -6,6 +6,9 @@ import java.util.Map;
 import net.scit.vo.TodoVO;
 
 public interface TodoMapper {
+	
+	//전체 조회
+	public List<TodoVO> listAll();
 
 	// 개인별 일반 조회
 	public List<TodoVO> listByPerson(String usrid);

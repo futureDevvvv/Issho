@@ -50,7 +50,7 @@ public class UserVO {
 	
 	@Override
 	public String toString() {
-		return "이름 =" + usrname;
+		return usrname;
 	}
 	
 }

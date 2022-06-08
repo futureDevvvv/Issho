@@ -29,6 +29,8 @@ public class MenuUI extends JFrame {
 	Image shoMsg = shMsg.getImage();
 	Image showMsg = shoMsg.getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 	ImageIcon showMsgIcon = new ImageIcon(showMsg);
+	
+	String index = null;
 
 	public MenuUI(UserVO vo) {
 
@@ -37,10 +39,10 @@ public class MenuUI extends JFrame {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		Font welcomeFont = new Font("굴림", Font.PLAIN, 20);
+		Font welcomeFont = new Font("KoPubWorld돋움체 Light", Font.BOLD, 20);
 		JLabel welcome = new JLabel("*** " + vo.getUsrname() + "님 환영합니다! ***");
 		welcome.setFont(welcomeFont);
-		welcome.setBounds(200, 100, 300, 50);
+		welcome.setBounds(230, 100, 300, 50);
 		c.add(welcome);
 
 		JPanel menuPanel = new JPanel(new GridLayout(5, 0, 20, 20));
@@ -51,9 +53,29 @@ public class MenuUI extends JFrame {
 		if (!vo.getTeamnum().equals("0")) {
 			JButton memInfo = new JButton("멤버 정보");
 			menuPanel.add(memInfo);
+			
+			index = "회원 메뉴";
+
+			memInfo.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					new MyInfoUI(vo);
+					setVisible(false);
+				}
+			});
 
 			JButton viewBoard = new JButton("팀원 게시판");
 			menuPanel.add(viewBoard);
+
+			viewBoard.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					new BoardAllUI(vo);
+					setVisible(false);
+				}
+			});
 
 			JButton todo = new JButton("업무관리");
 			menuPanel.add(todo);
@@ -136,14 +158,74 @@ public class MenuUI extends JFrame {
 			chatBorder.setBounds(200, 580, 300, 150);
 			c.add(chatBorder);
 		} else {
-			//관리자 메뉴
 			
+			index = "관리자 메뉴";
 			
-			
+			// 관리자 메뉴
+			JButton memInfo = new JButton("구성원 관리");
+			menuPanel.add(memInfo);
+
+			memInfo.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					new AllMemList(vo);
+					setVisible(false);
+				}
+			});
+
+			JButton viewBoard = new JButton("게시판 관리");
+			menuPanel.add(viewBoard);
+
+			viewBoard.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					new AllBoardList(vo);
+					setVisible(false);
+				}
+			});
+
+			JButton todo = new JButton("업무관리");
+			menuPanel.add(todo);
+
+			todo.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					new AllTodo(vo);
+					setVisible(false);
+				}
+			});
+
+			JButton schedule = new JButton("일정관리");
+			menuPanel.add(schedule);
+
+			schedule.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					new AllSchedule(vo);
+					setVisible(false);
+				}
+			});
+
+			JButton logout = new JButton("로그아웃");
+			menuPanel.add(logout);
+
+			logout.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					new Login();
+					setVisible(false);
+				}
+			});
+
 		}
 
 		JPanel menuBorder = new JPanel();
-		menuBorder.setBorder(new TitledBorder(new LineBorder(Color.DARK_GRAY, 1), "회원 메뉴"));
+		menuBorder.setBorder(new TitledBorder(new LineBorder(Color.DARK_GRAY, 1), index));
 		menuBorder.setBounds(200, 150, 300, 400);
 		c.add(menuBorder);
 

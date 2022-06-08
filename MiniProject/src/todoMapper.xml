@@ -10,6 +10,11 @@
 		FROM todo
 	</sql>
 
+	<select id="listAll" resultType="Todo">
+		<include refid="selectBy"></include>
+		ORDER BY t_regdate DESC
+	</select>
+
 	<select id="listByPerson" resultType="Todo">
 		<include refid="selectBy"></include>
 		WHERE usrid = #{usrid}
