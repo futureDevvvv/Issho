@@ -14,6 +14,11 @@
 		FROM
 		schedule
 	</sql>
+	
+	<select id="AllSchList" resultType="Schedule">
+		<include refid="selectBy"></include>
+		ORDER BY s_num DESC
+	</select>
 
 	<select id="listByPersonMonth" parameterType="map"
 		resultType="Schedule">

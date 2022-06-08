@@ -5,54 +5,24 @@
 
 <mapper namespace="net.scit.dao.BoardMapper">
 
+	<sql id="selectBy">
+		SELECT b_num, b_title, b_content, usrid, TO_CHAR(b_regdate, 'YY-MM-DD HH:MM') as b_regdate, b_hitcount, teamnum
+		FROM board
+	</sql>
+
 	<select id="getCount" resultType="int">
 		SELECT count(*) FROM Board
 	</select>
 
 	<select id="adminlistBoard" resultType="Board">
 		select *
-		from Board b,usr u
-		where b.usrid = u.usrid
-		</select>
-		
-		<select id="listBoard" resultType="Board" parameterType="String">
-		select *
-		from Board b,usr u
-		where u.usrid = b.usrid
-		and b.teamnum = #{teamnum}
-		</select>
-		
-		<insert id="weiterBoard" parameterType="Board">
-			INSERT INTO Board
-			(b_num,b_title,b_content,usrid,teamnum)
-			VALUES
-			(b_num_seq.nextval,#{b_title},#{b_content},#{usrid},#{teamnum})
-		</insert>
-		
-		<select id="readBoard" resultType="Board" parameterType="String">
-		select *
-		from Board b,usr u
-		where b.usrid = u.usrid
-		and b_num = #{b_num}
-		</select>
-		
-		<delete id="deletBoard" parameterType="String">
-		DELETE
-		Board
-		where b_num = #{b_num}
-		</delete>
-		
-		<select id="beBoard" resultType="Board" parameterType="String">
-		select *
-		from Board b,usr u
-		where b.usrid = u.usrid
-		and b_num = #{b_num}
-		</select>
+		from Board
+	</select>
 
 	<select id="listBoard" resultType="Board" parameterType="String">
-		select *
-		from Board
+		<include refid="selectBy"></include>
 		where teamnum = #{teamnum}
+		ORDER BY b_regdate DESC
 	</select>
 
 	<insert id="weiterBoard" parameterType="Board">
@@ -62,37 +32,36 @@
 		(b_num_seq.nextval,#{b_title},#{b_content},#{usrid},#{teamnum})
 	</insert>
 
-	<select id="readBoard" resultType="Board" parameterType="String">
-		select *
-		from Board
-		where b_num = #{b_num}
-	</select>
 	<delete id="deletBoard" parameterType="String">
 		DELETE
 		Board
 		where b_num =
 		#{b_num}
 	</delete>
+
+	<!--  
 	<select id="beBoard" resultType="Board" parameterType="String">
 		select *
-		from Board
+		from Board b
 		where b_num = #{b_num}
-
-
 	</select>
+	-->
+	<select id="readBoard" resultType="Board" parameterType="String">
+		<include refid="selectBy"></include>
+		where b_num = #{b_num}
+	</select>
+	
 	<select id="searchBoard" resultType="Board" parameterType="map">
-		SELECT *
-		FROM board b, usr u
-		WHERE b.usrid = u.usrid
-		and
+		<include refid="selectBy"></include>
+		WHERE 
 		<choose>
-			<when test="searchItem == 'usrid'">b.usrid</when>
-			<when test="searchItem == 'b_title'">b.b_title</when>
-			<when test="searchItem == 'b_content'">b.b_content</when>
+			<when test="searchItem == 'usrid'">usrid</when>
+			<when test="searchItem == 'b_title'">b_title</when>
+			<when test="searchItem == 'b_content'">b_content</when>
 		</choose>
 		LIKE '%'||#{searchWord}||'%'
 	</select>
-	
+
 	<update id="updateBoard" parameterType="Board">
 		UPDATE board
 		SET
@@ -101,10 +70,21 @@
 	</update>
 
 	<select id="listBoardAll" resultType="Board">
-		SELECT * FROM board
+		<include refid="selectBy"></include>
 		ORDER BY
 		b_regdate DESC
 	</select>
 
+	<update id="incrementHitcount" parameterType="String">
+		UPDATE board
+		SET
+		b_hitcount = b_hitcount + 1
+		WHERE b_num = #{b_num}
+	</update>
+	
+	<select id="selectById" parameterType="String" resultType="Board">
+		<include refid="selectBy"></include>
+		WHERE usrid = #{usrid}
+	</select>
 
 </mapper>

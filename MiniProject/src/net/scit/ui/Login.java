@@ -5,6 +5,7 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Enumeration;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,13 +14,30 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.plaf.FontUIResource;
 
 import net.scit.dao.UserDAO;
 import net.scit.vo.UserVO;
 
 public class Login extends JFrame {
+
+	public static void setUIFont(FontUIResource f) {
+		Enumeration keys = UIManager.getDefaults().keys();
+
+		while (keys.hasMoreElements()) {
+			Object key = keys.nextElement();
+			Object value = UIManager.get(key);
+
+			if (value instanceof FontUIResource) {
+				FontUIResource orig = (FontUIResource) value;
+				Font font = new Font(f.getFontName(), orig.getStyle(), f.getSize());
+				UIManager.put(key, new FontUIResource(font));
+			}
+		}
+	}
 
 	private JPanel forIntro;
 	private JPanel LoginBorder;
@@ -27,22 +45,11 @@ public class Login extends JFrame {
 	private JTextField pwField;
 
 	/**
-	 * Launch the application.
-	 */
-
-	/*
-	 * 
-	 * public static void main(String[] args) { EventQueue.invokeLater(new
-	 * Runnable() { public void run() { try { Login frame = new Login();
-	 * frame.setVisible(true); } catch (Exception e) { e.printStackTrace(); } } });
-	 * }
-	 * 
-	 */
-
-	/**
 	 * Create the frame.
 	 */
 	public Login() {
+
+		setUIFont(new FontUIResource(new Font("KoPubWorld돋움체 Light", 0, 15)));
 
 		UserDAO usrDao = new UserDAO();
 
@@ -51,11 +58,28 @@ public class Login extends JFrame {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		forIntro = new JPanel();
-		forIntro.setBackground(Color.green);
-		forIntro.setBounds(30, 50, 600, 250);
-		c.add(forIntro);
+		Font font = new Font("창원단감아삭 Bold", Font.PLAIN, 120);
+		Font font2 = new Font("Yu Gothic", Font.BOLD, 40);
+		Font font3 = new Font("한컴산뜻돋움", Font.PLAIN, 40);
 
+		JLabel issho = new JLabel("issho");
+		issho.setBounds(100, 100, 500, 200);
+		issho.setFont(font);
+		issho.setForeground(new Color(51, 102, 255));
+		c.add(issho);
+
+		JLabel japan = new JLabel("一緒に、一生懸命");
+		japan.setBounds(100, 250, 500, 100);
+		japan.setFont(font2);
+		japan.setForeground(new Color(51, 102, 255));
+		c.add(japan);
+
+		/*
+		 * 
+		 * forIntro = new JPanel(); forIntro.setBackground(Color.white);
+		 * forIntro.setBounds(30, 50, 600, 250); c.add(forIntro);
+		 * 
+		 */
 		// contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		// setContentPane(contentPane);
 		// contentPane.setLayout(null);
@@ -64,8 +88,8 @@ public class Login extends JFrame {
 		lblNewLabel.setBounds(60, 80, 400, 200);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setForeground(Color.GRAY);
-		lblNewLabel.setFont(new Font("굴림", Font.PLAIN, 30));
-		forIntro.add(lblNewLabel);
+		lblNewLabel.setFont(new Font("KoPubWorld돋움체 Light", Font.PLAIN, 30));
+		// forIntro.add(lblNewLabel);
 
 		JLabel idLabel = new JLabel("ID ");
 		idLabel.setBounds(90, 420, 100, 30);
@@ -125,6 +149,7 @@ public class Login extends JFrame {
 				} else {
 					UserVO vo = usrDao.findById(id);
 					new MenuUI(vo);
+					setVisible(false);
 				}
 			}
 		});

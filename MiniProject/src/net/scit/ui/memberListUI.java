@@ -57,7 +57,7 @@ public class memberListUI extends JFrame {
 			teamname = "개발부";
 			break;
 		}
-		Font forTitle = new Font("굴림", Font.BOLD, 25);
+		Font forTitle = new Font("KoPubWorld돋움체 Light", Font.BOLD, 25);
 
 		JLabel title = new JLabel("팀원 목록  ");
 		title.setFont(forTitle);

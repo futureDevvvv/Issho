@@ -30,6 +30,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 
 import net.scit.dao.ScheduleDAO;
 import net.scit.dao.UserDAO;
@@ -228,16 +229,20 @@ public class SchedulerUI extends JFrame {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		Font forTitle = new Font("굴림", Font.BOLD, 25);
+		Font forTitle = new Font("KoPubWorld돋움체 Light", Font.BOLD, 25);
 
 		JLabel title = new JLabel("일정 관리   ");
 		title.setFont(forTitle);
 		title.setBounds(20, 10, 150, 30);
 		c.add(title);
 
+		/*
+	
 		JLabel info = new JLabel(teamname + " " + name + " 님");
 		info.setBounds(130, 10, 150, 30);
 		c.add(info);
+		
+		*/
 
 		JLabel lb1 = new JLabel("조회 범위");
 		lb1.setBounds(20, 50, 100, 30);
@@ -740,6 +745,11 @@ public class SchedulerUI extends JFrame {
 		calendarWindow.setVisible(false);
 		ceNorth.setVisible(false);
 
+		JPanel SchBorder = new JPanel();
+		SchBorder.setBorder(new LineBorder(Color.DARK_GRAY, 1));
+		SchBorder.setBounds(10, 460, 650, 280);
+		c.add(SchBorder);
+		
 		// 윈도우 창 크기 설정
 		setSize(700, 900);
 

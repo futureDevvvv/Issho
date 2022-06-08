@@ -2,19 +2,19 @@
 <!DOCTYPE configuration
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
-  
+
 <configuration>
-	
-	<properties resource="db.properties"/>
-	
+
+	<properties resource="db.properties" />
+
 	<typeAliases>
-		<typeAlias type="net.scit.vo.UserVO" alias="User"/>
-		<typeAlias type="net.scit.vo.TodoVO" alias="Todo"/>
-		<typeAlias type="net.scit.vo.ScheduleVO" alias="Schedule"/>
-		<typeAlias type="net.scit.vo.BoardVO" alias="Board"/>
-		<typeAlias type="net.scit.vo.NoticeVO" alias="Notice"/>
-		<typeAlias type="net.scit.vo.ReplyVO" alias="Reply"/>
-		<typeAlias type="net.scit.vo.BlikeVO" alias="Blike"/>
+		<typeAlias type="net.scit.vo.UserVO" alias="User" />
+		<typeAlias type="net.scit.vo.TodoVO" alias="Todo" />
+		<typeAlias type="net.scit.vo.ScheduleVO" alias="Schedule" />
+		<typeAlias type="net.scit.vo.BoardVO" alias="Board" />
+		<typeAlias type="net.scit.vo.NoticeVO" alias="Notice" />
+		<typeAlias type="net.scit.vo.ReplyVO" alias="Reply" />
+		<typeAlias type="net.scit.vo.BlikeVO" alias="Blike" />
 	</typeAliases>
 
 	<environments default="development">
@@ -28,7 +28,9 @@
 			</dataSource>
 		</environment>
 	</environments>
-	
+
+
+
 	<mappers>
 		<mapper resource="userMapper.xml" />
 		<mapper resource="todoMapper.xml" />

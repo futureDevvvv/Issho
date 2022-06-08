@@ -10,12 +10,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -26,14 +24,14 @@ import net.scit.dao.UserDAO;
 import net.scit.vo.BoardVO;
 import net.scit.vo.UserVO;
 
-public class BoardAllUI extends JFrame {
+public class BoardSearchUI extends JFrame {
 
 	UserDAO userDao = new UserDAO();
 	BoardDAO boardDao = new BoardDAO();
 
 	String searchOption[] = { "제목", "내용", "작성자" };
 
-	public BoardAllUI(UserVO vo) {
+	public BoardSearchUI(UserVO vo, Map<String, String> map) {
 
 		String teamnum = vo.getTeamnum();
 
@@ -86,7 +84,7 @@ public class BoardAllUI extends JFrame {
 		scrollPane.setBounds(20, 150, 650, 400);
 		c.add(scrollPane);
 
-		List<BoardVO> list = boardDao.listBoard(teamnum);
+		List<BoardVO> list = boardDao.searchBoard(map);
 
 		String[] colNames = new String[] { "글번호", "제목", "작성자", "작성일", "조회수" };
 		Object[][] rowDatas = new Object[list.size()][colNames.length];
@@ -96,7 +94,7 @@ public class BoardAllUI extends JFrame {
 
 		for (int i = 0; i < list.size(); i++) {
 			rowDatas[i] = new Object[] { list.get(i).getB_num(), list.get(i).getB_title(),
-					list.get(i).getUsrid(), list.get(i).getB_regdate(), list.get(i).getB_hitcount() };
+					userDao.findById(list.get(i).getUsrid()), list.get(i).getB_regdate(), list.get(i).getB_hitcount() };
 		}
 
 		table.setModel(new DefaultTableModel(rowDatas, colNames) {
@@ -116,7 +114,7 @@ public class BoardAllUI extends JFrame {
 		table.getColumnModel().getColumn(2).setResizable(false);
 		table.getColumnModel().getColumn(2).setPreferredWidth(130);
 		table.getColumnModel().getColumn(3).setResizable(false);
-		table.getColumnModel().getColumn(3).setPreferredWidth(170);
+		table.getColumnModel().getColumn(3).setPreferredWidth(150);
 		table.getColumnModel().getColumn(4).setResizable(false);
 		table.getColumnModel().getColumn(4).setPreferredWidth(70);
 
@@ -185,22 +183,22 @@ public class BoardAllUI extends JFrame {
 				}
 
 				map.put("searchWord", keyword);
-				
+
 				new BoardSearchUI(vo, map);
 				setVisible(false);
 
-				//list = boardDao.searchBoard(map);
+				// list = boardDao.searchBoard(map);
 
 			}
 		});
-		
-		//이전 버튼
+
+		// 이전 버튼
 		JButton menu = new JButton("<< 이전");
 		menu.setBounds(20, 570, 150, 30);
 		c.add(menu);
-		
+
 		menu.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new MenuUI(vo);
