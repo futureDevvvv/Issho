@@ -29,8 +29,6 @@
 		</environment>
 	</environments>
 
-
-
 	<mappers>
 		<mapper resource="userMapper.xml" />
 		<mapper resource="todoMapper.xml" />
